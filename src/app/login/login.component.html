@@ -16,7 +16,7 @@
                     <mat-error>Login failed! Please check your username and password.</mat-error>
                 }
                 <div class="button">
-                    <button type="submit" mat-flat-button (click)="onLogin()">Login</button>
+                    <button type="submit" mat-flat-button (click)="onLogin()" [disabled]="loading">Login</button>
                 </div>
     
             </form>
