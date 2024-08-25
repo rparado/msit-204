@@ -1,0 +1,30 @@
+
+<ion-content [fullscreen]="true" class="login-wrapper">
+	<ng-container *ngIf="loadingService.loading$ | async">
+		<ion-progress-bar type="indeterminate"></ion-progress-bar>
+	</ng-container>
+	<div class="inner-content ion-padding">
+		<ion-title>Login</ion-title>
+		<form [formGroup]="loginForm">
+			<ion-input 
+				label="Username" 
+				label-placement="floating" 
+				fill="solid" 
+				placeholder="Username"
+				formControlName="username"
+			></ion-input>
+			<ion-input 
+				type="password" 
+				label="Password"
+				label-placement="floating" 
+				fill="solid"
+				formControlName="password">
+			</ion-input>
+			<ion-button 
+				expand="block"
+				(click)="onLogin()" [disabled]="!loginForm.valid || loading"
+			>Login</ion-button>
+
+		</form>
+	</div>	
+</ion-content>
