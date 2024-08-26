@@ -61,6 +61,10 @@ export class LoginPage implements OnInit {
        
     }
 
+	onRegister() {
+		this.router.navigateByUrl('/register')
+	}
+
 	async loadingFailed() {
 		this.loading = false;
 		this.loadingService.hide();

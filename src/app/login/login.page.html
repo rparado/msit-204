@@ -21,10 +21,14 @@
 				formControlName="password">
 			</ion-input>
 			<ion-button 
+				color="success"
 				expand="block"
 				(click)="onLogin()" [disabled]="!loginForm.valid || loading"
 			>Login</ion-button>
-
+			<ion-button 
+				expand="block"
+				(click)="onRegister()"
+			>Register</ion-button>
 		</form>
 	</div>	
 </ion-content>
