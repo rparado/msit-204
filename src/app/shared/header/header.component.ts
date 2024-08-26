@@ -23,7 +23,7 @@ export class HeaderComponent  implements OnInit {
 	profile() {
 
 	}
-	async presentActionSheet() {
+	async userSettingActionSheet() {
 		const actionSheet = await this.actionSheetCtrl.create({
 		  header: 'Settings',
 		  buttons: [
