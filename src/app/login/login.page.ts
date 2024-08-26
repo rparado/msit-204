@@ -11,10 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
-	loginForm: any;
+	
 	loginFailed: boolean = false;
     loading: boolean = false;
-
+	
+	loginForm = this.fb.group({
+		username: ['', [Validators.required, Validators.minLength(1)]],
+		password: ['', [Validators.required, Validators.minLength(1)]]
+	})
 	constructor(
 		private fb: FormBuilder,
 		private authService: AuthService,
@@ -22,10 +26,7 @@ export class LoginPage implements OnInit {
 		private toastController: ToastController,
 		private router: Router
 	) {
-		this.loginForm = this.fb.group({
-            username: ['', [Validators.required, Validators.minLength(1)]],
-            password: ['', [Validators.required, Validators.minLength(1)]]
-        })
+		
 	 }
 
 	ngOnInit() {
@@ -36,7 +37,7 @@ export class LoginPage implements OnInit {
 		this.loading = true;
 
 		if(this.loginForm.value) {
-			const formData = this.loginForm.value;
+			const formData: any = this.loginForm.value;
 
 			this.authService.login(formData.username, formData.password).subscribe(
 				async (data) => {

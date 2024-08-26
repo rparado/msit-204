@@ -1,25 +1,35 @@
+<ng-container *ngIf="loadingService.loading$ | async">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
+<ion-header [translucent]="true">
+	<ion-toolbar>
+	  <ion-title>Login</ion-title>
+	</ion-toolbar>
+</ion-header>
 
-<ion-content [fullscreen]="true" class="login-wrapper">
-	<ng-container *ngIf="loadingService.loading$ | async">
-		<ion-progress-bar type="indeterminate"></ion-progress-bar>
-	</ng-container>
+
+<ion-content [fullscreen]="true" class="ion-padding-top">
+	
 	<div class="inner-content ion-padding">
-		<ion-title>Login</ion-title>
 		<form [formGroup]="loginForm">
-			<ion-input 
-				label="Username" 
-				label-placement="floating" 
-				fill="solid" 
-				placeholder="Username"
-				formControlName="username"
-			></ion-input>
-			<ion-input 
-				type="password" 
-				label="Password"
-				label-placement="floating" 
-				fill="solid"
-				formControlName="password">
-			</ion-input>
+			<ion-item>
+				<ion-input 
+					label="Username" 
+					label-placement="floating" 
+					fill="solid" 
+					placeholder="Username"
+					formControlName="username"
+				></ion-input>
+			</ion-item>
+			<ion-item class="ion-margin-bottom" lines="none">
+				<ion-input 
+					type="password" 
+					label="Password"
+					label-placement="floating" 
+					fill="solid"
+					formControlName="password">
+				</ion-input>
+			</ion-item>
 			<ion-button 
 				color="success"
 				expand="block"
