@@ -3,36 +3,45 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {
-	path: '',
-	redirectTo: 'login',
-	pathMatch: 'full'
-  },
-  {
-	path: 'login',
-	loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+	{
+		path: '',
+		redirectTo: 'login',
+		pathMatch: 'full'
+	},
+	{
+		path: 'login',
+		loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
 
-  },
-  {
-	path: 'register',
-	loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
+	},
+	{
+		path: 'register',
+		loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
 
-  },
-  {
-	path: 'patient',
-	loadChildren: () => import('./patient/patient.module').then( m => m.PatientPageModule),
-	canActivate: [AuthGuard]
-  },
-  {
-	path: 'register',
-	loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
+	},
+	{
+		path: 'patient',
+		loadChildren: () => import('./patient/patient.module').then( m => m.PatientPageModule),
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'patient/patient-profile',
+		loadChildren: () => import('./patient/patient-profile/patient-profile.module').then( m => m.PatientProfilePageModule),
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'register',
+		loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+	},
+	{
+		path: 'doctor',
+		loadChildren: () => import('./doctor/doctor.module').then( m => m.DoctorPageModule)
+	},
 ];
 
 @NgModule({
-  imports: [
+	imports: [
 	RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+	],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }
