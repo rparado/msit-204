@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ModalController, ToastController } from '@ionic/angular';
+import { RegisterService } from './service/register.service';
+import { Register } from './model/user';
+import { LoadingService } from '../shared/service/loading.service';
 
 @Component({
 	selector: 'app-register',
@@ -8,56 +13,71 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class RegisterPage implements OnInit {
 
-	@ViewChild('calendar', { static: false }) calendar: any;
-
-	selectedDate: string;
-
+    loading: boolean = false;
 	registerForm = this.fb.group({
-		fname: ['', [Validators.required, Validators.minLength(1)]],
-		lname: ['', [Validators.required, Validators.minLength(1)]],
-		gender: ['', [Validators.required, Validators.minLength(1)]],
-		bday: ['', [Validators.required, Validators.minLength(1)]],
-		pnum: ['', [Validators.required, Validators.minLength(1)]],
-		addr: ['', [Validators.required, Validators.minLength(1)]],
-		username: ['', [Validators.required, Validators.minLength(1)]],
-		password: ['', [Validators.required, Validators.minLength(1)]]
+		username: ['', [Validators.required, Validators.minLength(2)]],
+		password: ['', [Validators.required, Validators.minLength(8)]]
 	});
-
-	showCalendar: boolean = false;
-
-	
 
 	constructor(
 		private fb: FormBuilder,
+		private toastController: ToastController,
+		private router: Router,
+		private registerService: RegisterService,
+		public loadingService: LoadingService,
 	) { 
-		this.selectedDate = '';
 	}
 
 	ngOnInit() {
 	}
 	
 	onRegister() {
+		this.loadingService.show();
+		this.loading = true;
+		const formData: any = this.registerForm.value;
 
+		if(formData) {
+			this.registerService.register(formData.username, formData.password)
+			.subscribe(async(data: any) =>  {
+				if(data) {
+					this.hideLoading();
+					await this.showSuccessToast(data.message);
+					this.router.navigateByUrl('/patient/patient-profile');
+				}
+			},async (err) => {
+				this.hideLoading();
+				await this.showErrorToast(err.error.message);
+			})
+		}
 	}
 
-	openCalendar() {
-		this.showCalendar = true;
-	}
-	closeCalendar() {
-		this.showCalendar = false;
-	}
-	onDateChange(event: any) {
-		const selectedDate = new Date(event.detail.value).toLocaleDateString('en-US');
-		this.registerForm.get('bday')?.setValue(selectedDate);
+	async showErrorToast(message: string) {
+		this.loadingService.hide();
+		this.loading = false;
+		const toast = await this.toastController.create({
+			message: message,
+			duration: 2000,
+			position: 'bottom',
+			color: 'danger',
+		});
+
+		await toast.present();
 	}
 
-	onDone(event: any) {
-		this.onDateChange(event); // Update the input field with the selected date
-		this.closeCalendar();
+	async showSuccessToast(message: string) {
+		const toast = await this.toastController.create({
+			message: message,
+			duration: 2000,
+			position: 'bottom',
+			color: 'success',
+		});
+
+		await toast.present();
 	}
 
-	onCancel() {
-		this.closeCalendar();
+	hideLoading() {
+		this.loadingService.hide();
+		this.loading = false;
 	}
 
 }
