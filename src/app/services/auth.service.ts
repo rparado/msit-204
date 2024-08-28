@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { delay, mergeMap, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Register } from '../register/model/user';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 		private http: HttpClient
 	) { }
   
-	login(username: string, password: string): Observable<any> {
+	login(username: string, password: string): Observable<Register> {
 
 		let data = {
 			"username": username,
@@ -24,7 +25,7 @@ export class AuthService {
 
 		return this.http.post<any>(this.API_BASE + `login`, data)
 			.pipe(
-				tap(res => {
+				tap((res: any) => {
 					if(res) {
 						localStorage.setItem('token', res.token);
 					} else {
