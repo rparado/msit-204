@@ -1,27 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { delay, mergeMap, Observable, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
 	private isLoggedIn = false;
+	private API_BASE = environment.apiUrl;
 
-	private mockUser = {
-	  username: "patient_test",
-	  password: "password1234!"
-  }
-  
 	constructor(
+		private http: HttpClient
 	) { }
   
-	login(username: string, password: string): Observable<boolean> {
-	  if(username === this.mockUser.username && password === this.mockUser.password) {
-		  this.isLoggedIn = true;
-		  return of(true);
-	  } else {
-		  return of(false)
-	  }
+	login(username: string, password: string): Observable<any> {
+
+		let data = {
+			"username": username,
+			"password": password
+		}
+
+
+		return this.http.post<any>(this.API_BASE + `login`, data)
+			.pipe(
+				tap(res => {
+					if(res) {
+						localStorage.setItem('token', res.token);
+					} else {
+						this.clearLocalStorage();
+					}
+				}),
+			);
 	  
 	}
 	logout() {
@@ -29,5 +39,9 @@ export class AuthService {
 	}
 	isAuthenticated(): boolean {
 	  return this.isLoggedIn
+	}
+
+	clearLocalStorage() {
+		localStorage.removeItem('token');
 	}
 }

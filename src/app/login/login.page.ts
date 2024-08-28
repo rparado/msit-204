@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
 
 		const toast = await this.toastController.create({
 			message: 'Incorrect Username and Password!',
-			duration: 3000,
+			duration: 2000,
 			position: 'bottom',
 			color: 'danger',
 		});
@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
 	async showSuccessToast() {
 		const toast = await this.toastController.create({
 			message: 'Login successful!',
-			duration: 3000,
+			duration: 2000,
 			position: 'bottom',
 			color: 'success',
 		});
