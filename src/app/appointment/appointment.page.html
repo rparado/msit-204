@@ -11,9 +11,12 @@
 		<ion-item>
 			<ion-select 
 				label="Select Specialization" 
-				placeholder="Specialization" 
+				placeholder="Select Specialization" 
 				formControlName="specialization" 
-				interface="action-sheet">
+				interface="action-sheet"
+				(ionChange)="onSpecializationChange($event)">
+				
+				<ion-select-option value="">Select a Specialization</ion-select-option>
 				<ion-select-option 
 					*ngFor="let item of specializations"
 					value="{{item.SpecializationID}}">
@@ -21,5 +24,39 @@
 				</ion-select-option>
 			  </ion-select>
 		</ion-item>
+		<ion-item>
+			<ion-select 
+				label="Select Doctor" 
+				placeholder="Select Doctor" 
+				formControlName="doctor" 
+				interface="action-sheet"
+				(ionChange)="onDoctorChange($event)"
+				>
+
+				<ion-select-option value="">Select a Doctor</ion-select-option>
+				<ion-select-option 
+					*ngFor="let item of doctors"
+					value="{{item.DoctorID}}">
+					{{item.FirstName}} {{item.LastName}}
+				</ion-select-option>
+			  </ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-input 
+				label="Date"
+				label-placement="floating" 
+				readonly
+				formControlName="appointmentDate"
+				[value]="selectedDate"
+				(click)="openDatePicker()"
+				>
+			</ion-input>
+		</ion-item>
+		<ion-button 
+			color="success"
+			expand="block"
+			(click)="onSubmit()"
+			[disabled]="!appointForm.valid || loading"
+		>Submit</ion-button>
 	</form>
 </ion-content>
