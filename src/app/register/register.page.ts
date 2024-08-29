@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { RegisterService } from './service/register.service';
-import { Register } from './model/user';
 import { LoadingService } from '../shared/service/loading.service';
+import { ToastService } from '../services/toast.service';
 
 @Component({
 	selector: 'app-register',
@@ -25,6 +25,7 @@ export class RegisterPage implements OnInit {
 		private router: Router,
 		private registerService: RegisterService,
 		public loadingService: LoadingService,
+		private toastService: ToastService
 	) { 
 	}
 
@@ -41,38 +42,14 @@ export class RegisterPage implements OnInit {
 			.subscribe(async(data: any) =>  {
 				if(data) {
 					this.hideLoading();
-					await this.showSuccessToast(data.message);
+					this.toastService.successToast(data.message)
 					this.router.navigateByUrl('/login');
 				}
 			},async (err) => {
 				this.hideLoading();
-				await this.showErrorToast(err.error.message);
+				this.toastService.errorToast(err.error.message)
 			})
 		}
-	}
-
-	async showErrorToast(message: string) {
-		this.loadingService.hide();
-		this.loading = false;
-		const toast = await this.toastController.create({
-			message: message,
-			duration: 2000,
-			position: 'bottom',
-			color: 'danger',
-		});
-
-		await toast.present();
-	}
-
-	async showSuccessToast(message: string) {
-		const toast = await this.toastController.create({
-			message: message,
-			duration: 2000,
-			position: 'bottom',
-			color: 'success',
-		});
-
-		await toast.present();
 	}
 
 	hideLoading() {

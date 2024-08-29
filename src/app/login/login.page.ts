@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../shared/service/loading.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ToastService } from '../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,8 @@ export class LoginPage implements OnInit {
 		private authService: AuthService,
 		public loadingService: LoadingService,
 		private toastController: ToastController,
-		private router: Router
+		private router: Router,
+		private toastService: ToastService
 	) {
 		
 	 }
@@ -44,14 +46,14 @@ export class LoginPage implements OnInit {
 					if (data) {
 						this.loadingService.hide();
 						this.loading = false;
-						await this.showSuccessToast();
+						this.toastService.successToast()
 						this.router.navigateByUrl('/patient/patient-profile');
 					} else {
-						this.loadingFailed();
+						this.toastService.errorToast()
 					}
 				},
 				async () => {
-					this.loadingFailed();
+					this.toastService.errorToast()
 				}
 			);
 		} else {
@@ -65,30 +67,8 @@ export class LoginPage implements OnInit {
 	onRegister() {
 		this.router.navigateByUrl('/register')
 	}
-
-	async loadingFailed() {
-		this.loading = false;
+	hideLoading() {
 		this.loadingService.hide();
-
-		const toast = await this.toastController.create({
-			message: 'Incorrect Username and Password!',
-			duration: 2000,
-			position: 'bottom',
-			color: 'danger',
-		});
-
-		await toast.present();
+		this.loading = false;
 	}
-
-	async showSuccessToast() {
-		const toast = await this.toastController.create({
-			message: 'Login successful!',
-			duration: 2000,
-			position: 'bottom',
-			color: 'success',
-		});
-
-		await toast.present();
-	}
-
 }
