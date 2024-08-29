@@ -77,7 +77,7 @@ export class PatientProfilePage implements OnInit {
 			.subscribe(async(data:any) => {
 				if(data) {
 					this.hideLoading();
-					this.toastService.successToast(data)
+					this.toastService.successToast(data.message)
 				}
 			}, (err) => {
 				console.log('err ', err)

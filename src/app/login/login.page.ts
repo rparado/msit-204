@@ -46,14 +46,14 @@ export class LoginPage implements OnInit {
 					if (data) {
 						this.loadingService.hide();
 						this.loading = false;
-						this.toastService.successToast()
+						this.toastService.successToast('Login Successful!')
 						this.router.navigateByUrl('/patient/patient-profile');
 					} else {
-						this.toastService.errorToast()
+						this.toastService.errorToast('Error logging in')
 					}
 				},
 				async () => {
-					this.toastService.errorToast()
+					this.toastService.errorToast('Error logging in')
 				}
 			);
 		} else {
