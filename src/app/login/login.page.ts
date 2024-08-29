@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
 						this.loadingService.hide();
 						this.loading = false;
 						await this.showSuccessToast();
-						this.router.navigateByUrl('/patient');
+						this.router.navigateByUrl('/patient/patient-profile');
 					} else {
 						this.loadingFailed();
 					}

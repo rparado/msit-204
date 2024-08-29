@@ -1,20 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-			<ion-back-button></ion-back-button>
-		</ion-buttons>
-    <ion-title>Patient Profile</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header
+  [pageTitle]="'Patient Profile'"
+></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">patient-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <!-- <form [formGroup]="registerForm">
+  <form [formGroup]="patientForm">
 		<ion-item>
 			<ion-input 
 				label="Firstname" 
@@ -61,20 +50,11 @@
 				fill="solid"
 				readonly
 				formControlName="bday"
-				(click)="openCalendar()"
+				[value]="selectedDate"
+				(click)="openDatePicker()"
 				>
 			</ion-input>
 		</ion-item>
-
-		<ion-datetime
-			*ngIf="showCalendar"
-			#calendar
-			(ionChange)="onDateChange($event)"
-			(ionCancel)="onCancel()"
-			(ionConfirm)="onDone($event)"
-			presentation="date"
-			show-default-buttons>
-		</ion-datetime>
 
 		<ion-item>
 			<ion-input 
@@ -95,27 +75,10 @@
 				formControlName="addr"
 			></ion-input>
 		</ion-item>
-		<ion-item>
-			<ion-input 
-				label="Username"
-				label-placement="floating" 
-				fill="solid"
-				placeholder="Username"
-				formControlName="username">
-			</ion-input>
-		</ion-item>
-		<ion-item class="ion-margin-bottom" >
-			<ion-input 
-				type="password" 
-				label="Password"
-				label-placement="floating" 
-				fill="solid"
-				formControlName="password">
-			</ion-input>
-		</ion-item>
 		<ion-button 
 			color="success"
 			expand="block"
-			(click)="onRegister()"
-		>Register</ion-button> -->
+			(click)="onUpdate()"
+		>Update Profile</ion-button>
+	</form>
 </ion-content>

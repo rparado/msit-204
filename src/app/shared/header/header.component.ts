@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
 	selector: 'app-header',
@@ -12,12 +13,14 @@ export class HeaderComponent  implements OnInit {
 
 	constructor(
 		private actionSheetCtrl: ActionSheetController,
-		private route: Router
+		private route: Router,
+		private authService: AuthService
 	) { }
 
 	ngOnInit() {}
 
 	logout() {
+		this.authService.logout();
 		this.route.navigateByUrl('/login')
 	}
 	profile() {

@@ -42,7 +42,7 @@ export class RegisterPage implements OnInit {
 				if(data) {
 					this.hideLoading();
 					await this.showSuccessToast(data.message);
-					this.router.navigateByUrl('/patient/patient-profile');
+					this.router.navigateByUrl('/login');
 				}
 			},async (err) => {
 				this.hideLoading();

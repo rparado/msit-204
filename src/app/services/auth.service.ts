@@ -26,8 +26,10 @@ export class AuthService {
 		return this.http.post<any>(this.API_BASE + `login`, data)
 			.pipe(
 				tap((res: any) => {
+					console.log('res ', res)
 					if(res) {
 						localStorage.setItem('token', res.token);
+						localStorage.setItem('userId', res.id);
 					} else {
 						this.clearLocalStorage();
 					}
@@ -37,6 +39,7 @@ export class AuthService {
 	}
 	logout() {
 	  this.isLoggedIn = false;
+	  this.clearLocalStorage();
 	}
 	isAuthenticated(): boolean {
 	  return this.isLoggedIn
@@ -44,5 +47,6 @@ export class AuthService {
 
 	clearLocalStorage() {
 		localStorage.removeItem('token');
+		localStorage.removeItem('userId');
 	}
 }

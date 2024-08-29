@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
+import { CalendarPage } from 'src/app/calendar/calendar.page';
+import { DateService } from 'src/app/services/date.service';
 
 @Component({
   selector: 'app-patient-profile',
@@ -6,78 +10,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-profile.page.scss'],
 })
 export class PatientProfilePage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-
-  // @ViewChild('calendar', { static: false }) calendar: any;
-
-	// selectedDate: string;
-
-	// registerForm = this.fb.group({
-	// 	fname: ['', [Validators.required, Validators.minLength(1)]],
-	// 	lname: ['', [Validators.required, Validators.minLength(1)]],
-	// 	gender: ['', [Validators.required, Validators.minLength(1)]],
-	// 	bday: ['', [Validators.required, Validators.minLength(1)]],
-	// 	pnum: ['', [Validators.required, Validators.minLength(1)]],
-	// 	addr: ['', [Validators.required, Validators.minLength(1)]],
-	// 	username: ['', [Validators.required, Validators.minLength(1)]],
-	// 	password: ['', [Validators.required, Validators.minLength(1)]]
-	// });
-
-	// showCalendar: boolean = false;
-
 	
-
-	// constructor(
-	// 	private fb: FormBuilder,
-	// 	private modalController: ModalController
-	// ) { 
-	// 	this.selectedDate = '';
-	// }
-
-	// ngOnInit() {
-	// }
+	selectedDate: string;
 	
-	// onRegister() {
+	isModalOpen = false;
 
-	// }
+	constructor(
+		private fb: FormBuilder,
+		private modalCtrl: ModalController,
+    	private dateService: DateService
+	) { 
+		this.selectedDate = new Date().toISOString(); 
+	}
 
-	// async openCalendar() {
-	// 	const modal = await this.modalController.create({
-	// 	  component: RegisterPage,
-	// 	  cssClass: 'calendar-modal',
-	// 	  componentProps: {
-	// 		selectedDate: this.selectedDate
-	// 	  }
-	// 	});
-	
-	// 	modal.onDidDismiss().then((data) => {
-	// 	  if (data.data) {
-	// 		this.selectedDate = data.data.selectedDate;
-	// 	  }
-	// 	});
-	
-	// 	return await modal.present();
-	//   }
-	
-	// closeCalendar() {
-	// 	this.showCalendar = false;
-	// }
-	// onDateChange(event: any) {
-	// 	const selectedDate = new Date(event.detail.value).toLocaleDateString('en-US');
-	// 	this.registerForm.get('bday')?.setValue(selectedDate);
-	// }
+	ngOnInit() {
 
-	// onDone(event: any) {
-	// 	this.onDateChange(event); // Update the input field with the selected date
-	// 	this.closeCalendar();
-	// }
+		this.dateService.selectedDate$.subscribe(date => {
+			if (date) {
+			  this.selectedDate = date;
+			}
+		  });
+	}
 
-	// onCancel() {
-	// 	this.closeCalendar();
-	// }
+	patientForm = this.fb.group({
+		fname: ['', [Validators.required, Validators.minLength(1)]],
+		lname: ['', [Validators.required, Validators.minLength(1)]],
+		gender: ['', [Validators.required]],
+		bday: ['', [Validators.required]],
+		pnum: ['', [Validators.required]],
+		addr: ['', [Validators.required]],
+	});
+
+
+	async openDatePicker() {
+		const modal = await this.modalCtrl.create({
+			component: CalendarPage
+		});
+		return await modal.present();
+	}
+	onUpdate() {
+		
+	}
 }
