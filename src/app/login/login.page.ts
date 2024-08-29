@@ -47,7 +47,12 @@ export class LoginPage implements OnInit {
 						this.loadingService.hide();
 						this.loading = false;
 						this.toastService.successToast('Login Successful!')
-						this.router.navigateByUrl('/patient/patient-profile');
+						if(data.profileUpdated) {
+							this.router.navigateByUrl('/appointment');
+						} else {
+							this.router.navigateByUrl('/patient/patient-profile');
+						}
+						
 					} else {
 						this.toastService.errorToast('Error logging in')
 					}

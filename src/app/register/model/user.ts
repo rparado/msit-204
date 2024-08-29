@@ -14,4 +14,5 @@ export interface PatientProfile {
 export interface Register {
     username?: string;
     password?: string;
+    profileUpdated?: boolean;
 }
