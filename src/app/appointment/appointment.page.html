@@ -1,13 +1,25 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>appointment</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ng-container *ngIf="loadingService.loading$ | async">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
+<app-header
+  [pageTitle]="'Appointment'"
+></app-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">appointment</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+	
+	<form [formGroup]="appointForm">
+		<ion-item>
+			<ion-select 
+				label="Select Specialization" 
+				placeholder="Specialization" 
+				formControlName="specialization" 
+				interface="action-sheet">
+				<ion-select-option 
+					*ngFor="let item of specializations"
+					value="{{item.SpecializationID}}">
+					{{item.Specialization}}
+				</ion-select-option>
+			  </ion-select>
+		</ion-item>
+	</form>
 </ion-content>
