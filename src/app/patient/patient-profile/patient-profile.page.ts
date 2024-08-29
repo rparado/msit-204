@@ -80,7 +80,6 @@ export class PatientProfilePage implements OnInit {
 					this.toastService.successToast(data.message)
 				}
 			}, (err) => {
-				console.log('err ', err)
 				this.toastService.errorToast(err.error.message)
 			})
 	}

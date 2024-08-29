@@ -1,3 +1,35 @@
 <app-header
-  [pageTitle]="'Patient'"
+	[pageTitle]="'Patient'"
 ></app-header>
+<ng-container *ngIf="loadingService.loading$ | async">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
+<ion-content class="ion-padding">
+	<ng-container *ngIf="userProfile">
+		<ion-avatar class="avatar">
+			<img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+		</ion-avatar>
+		<ion-list>
+			<ion-item >
+				<ion-label>Name: {{userProfile?.FirstName}} {{userProfile?.LastName}}</ion-label>
+			</ion-item>
+			<ion-item >
+				<ion-label>Address: {{userProfile?.Address}}</ion-label>
+			</ion-item>
+			<ion-item >
+				<ion-label>Contact Number: {{userProfile?.ContactInfo}}</ion-label>
+			</ion-item>
+			<ion-item >
+				<ion-label>Gender: {{userProfile?.Gender}}</ion-label>
+			</ion-item>
+			<ion-item >
+				<ion-label>Birthdate: {{userProfile?.BirthDate | date: 'MMMM d, y'}}</ion-label>
+			</ion-item>
+		</ion-list>
+	</ng-container>
+	<ng-container *ngIf="!userProfile && !loading">
+		<p class="ion-text-center">Please update your profile first.</p>
+		<ion-button fill="solid"  expand="block" [routerLink]="['/patient/patient-profile']" color="success">Update Profile</ion-button>
+	</ng-container>
+	
+</ion-content>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 import { PatientProfile } from 'src/app/register/model/user';
 import { environment } from 'src/environments/environment';
 
@@ -16,8 +16,18 @@ export class PatientServiceService {
 		return this.http.post(this.API_BASE + `patients`, data)
 			.pipe(
 				tap((res: any) => {
-					console.log('res', res)
-				})
+					return res;
+				}),
+				delay(500)
+			)
+	}
+	getProfile(): Observable<string> {
+		return this.http.get(this.API_BASE + `patients/profile`)
+			.pipe(
+				tap((res: any) => {
+					return res;
+				}),
+				delay(500)
 			)
 	}
 }

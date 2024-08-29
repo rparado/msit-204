@@ -6,6 +6,9 @@ export interface PatientProfile {
     contactInfo: string;
     address: string;
     userId?: number;
+    InsuranceCoverage?: string;
+    PatientID?: number;
+    status?: boolean;
 }
 
 export interface Register {

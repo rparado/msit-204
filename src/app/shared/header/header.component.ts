@@ -24,7 +24,7 @@ export class HeaderComponent  implements OnInit {
 		this.route.navigateByUrl('/login')
 	}
 	profile() {
-		this.route.navigateByUrl('/patient/patient-profile');
+		this.route.navigateByUrl('/patient');
 	}
 	async userSettingActionSheet() {
 		const actionSheet = await this.actionSheetCtrl.create({
