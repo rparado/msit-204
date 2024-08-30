@@ -6,66 +6,69 @@
 ></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-	
-	<form [formGroup]="appointForm">
-		<ion-item>
-			<ion-select 
-				label="Select Specialization" 
-				placeholder="Select Specialization" 
-				formControlName="specialization" 
-				interface="action-sheet"
-				(ionChange)="onSpecializationChange($event)">
-				
-				<ion-select-option value="">Select a Specialization</ion-select-option>
-				<ion-select-option 
-					*ngFor="let item of specializations"
-					value="{{item.SpecializationID}}">
-					{{item.Specialization}}
-				</ion-select-option>
-			  </ion-select>
-			  <ion-text color="danger" *ngIf="appointForm.get('specialization')?.invalid && appointForm.get('specialization')?.touched">
-				<small *ngIf="appointForm.get('specialization')?.hasError('required')">Specialization is required</small>
-			</ion-text>
-		</ion-item>
-		<ion-item>
-			<ion-select 
-				label="Select Doctor" 
-				placeholder="Select Doctor" 
-				formControlName="doctor" 
-				interface="action-sheet"
-				(ionChange)="onDoctorChange($event)"
-				>
-
-				<ion-select-option value="">Select a Doctor</ion-select-option>
-				<ion-select-option 
-					*ngFor="let item of doctors"
-					value="{{item.DoctorID}}">
-					{{item.FirstName}} {{item.LastName}}
-				</ion-select-option>
-			  </ion-select>
-			  <ion-text color="danger" *ngIf="appointForm.get('doctor')?.invalid && appointForm.get('doctor')?.touched">
-				<small *ngIf="appointForm.get('doctor')?.hasError('required')">Doctor is required</small>
-			</ion-text>
-		</ion-item>
-		<ion-item>
-			<ion-input 
-				label="Date"
-				label-placement="floating" 
-				readonly
-				formControlName="appointmentDate"
-				[value]="selectedDate"
-				(click)="openDatePicker()"
-				>
-			</ion-input>
-			<ion-text color="danger" *ngIf="appointForm.get('appointmentDate')?.invalid && appointForm.get('appointmentDate')?.touched">
-				<small *ngIf="appointForm.get('appointmentDate')?.hasError('required')">Appointment date is required</small>
-			</ion-text>
-		</ion-item>
-		<ion-button 
-			color="success"
-			expand="block"
-			(click)="onSubmit()"
-			[disabled]="!appointForm.valid || loading"
-		>Submit</ion-button>
-	</form>
+	<div class="inner-content ion-padding">
+		<div class="center-content">
+			<form [formGroup]="appointForm">
+				<ion-item>
+					<ion-select 
+						label="Select Specialization" 
+						placeholder="Select Specialization" 
+						formControlName="specialization" 
+						interface="action-sheet"
+						(ionChange)="onSpecializationChange($event)">
+						
+						<ion-select-option value="">Select a Specialization</ion-select-option>
+						<ion-select-option 
+							*ngFor="let item of specializations"
+							value="{{item.SpecializationID}}">
+							{{item.Specialization}}
+						</ion-select-option>
+					  </ion-select>
+					  <ion-text color="danger" *ngIf="appointForm.get('specialization')?.invalid && appointForm.get('specialization')?.touched">
+						<small *ngIf="appointForm.get('specialization')?.hasError('required')">Specialization is required</small>
+					</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-select 
+						label="Select Doctor" 
+						placeholder="Select Doctor" 
+						formControlName="doctor" 
+						interface="action-sheet"
+						(ionChange)="onDoctorChange($event)"
+						>
+		
+						<ion-select-option value="">Select a Doctor</ion-select-option>
+						<ion-select-option 
+							*ngFor="let item of doctors"
+							value="{{item.DoctorID}}">
+							{{item.FirstName}} {{item.LastName}}
+						</ion-select-option>
+					  </ion-select>
+					  <ion-text color="danger" *ngIf="appointForm.get('doctor')?.invalid && appointForm.get('doctor')?.touched">
+						<small *ngIf="appointForm.get('doctor')?.hasError('required')">Doctor is required</small>
+					</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-input 
+						label="Date"
+						label-placement="floating" 
+						readonly
+						formControlName="appointmentDate"
+						[value]="selectedDate"
+						(click)="openDatePicker()"
+						>
+					</ion-input>
+					<ion-text color="danger" *ngIf="appointForm.get('appointmentDate')?.invalid && appointForm.get('appointmentDate')?.touched">
+						<small *ngIf="appointForm.get('appointmentDate')?.hasError('required')">Appointment date is required</small>
+					</ion-text>
+				</ion-item>
+				<ion-button 
+					color="success"
+					expand="block"
+					(click)="onSubmit()"
+					[disabled]="!appointForm.valid || loading"
+				>Submit</ion-button>
+			</form>
+		</div>
+	</div>
 </ion-content>
