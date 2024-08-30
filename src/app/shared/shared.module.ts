@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
   ],
   exports: [HeaderComponent, FooterComponent]
 })

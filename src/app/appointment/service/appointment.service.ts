@@ -44,4 +44,12 @@ export class AppointmentService {
 				}),
 			)
 	}
+	payAppointment(billingId: string):  Observable<string>  {
+		return this.http.put(`${this.API_BASE}/billing/pay/${billingId}`, {})
+			.pipe(
+				tap((res: any) => {
+					return res;
+				}),
+			)
+	}
 }

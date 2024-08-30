@@ -69,4 +69,11 @@ export class ListPage implements OnInit {
 			this.doctors = data;
 		});
 	}
+
+	payAppointment(billingId: string) {
+		this.appointmentService.payAppointment(billingId)
+			.subscribe(data => {
+				console.log('data ', data)
+			})
+	}
 }

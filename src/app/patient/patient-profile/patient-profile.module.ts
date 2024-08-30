@@ -8,6 +8,7 @@ import { PatientProfilePageRoutingModule } from './patient-profile-routing.modul
 
 import { PatientProfilePage } from './patient-profile.page';
 import { SharedModule } from '../../shared/shared.module';
+import { TabPageModule } from 'src/app/shared/tab/tab.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +16,8 @@ import { SharedModule } from '../../shared/shared.module';
     IonicModule,
     PatientProfilePageRoutingModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TabPageModule
   ],
   declarations: [PatientProfilePage]
 })

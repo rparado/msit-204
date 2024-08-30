@@ -29,24 +29,24 @@ const routes: Routes = [
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'register',
-		loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-	},
-	{
 		path: 'doctor',
 		loadChildren: () => import('./doctor/doctor.module').then( m => m.DoctorPageModule)
 	},
+	{
+		path: 'calendar',
+		loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
+	},
+	{
+		path: 'appointment',
+		loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
+	},
+	{
+		path: 'appointment/list',
+		loadChildren: () => import('./appointment/list/list.module').then( m => m.ListPageModule)
+	},
   {
-    path: 'calendar',
-    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
-  },
-  {
-    path: 'appointment',
-    loadChildren: () => import('./appointment/appointment.module').then( m => m.AppointmentPageModule)
-  },
-  {
-    path: 'appointment/list',
-    loadChildren: () => import('./appointment/list/list.module').then( m => m.ListPageModule)
+    path: 'tab',
+    loadChildren: () => import('./shared/tab/tab.module').then( m => m.TabPageModule)
   },
 ];
 

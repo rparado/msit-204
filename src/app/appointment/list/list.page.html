@@ -6,20 +6,29 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-text  *ngIf="user">
 	<h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3>
-	<p>Please see your appointment details below.</p>
+	<p>Please see your appointment details below. Click pay now button to process your appointment.</p>
   </ion-text>
   <ion-grid>
-	<ion-row  *ngIf="appointmentDetail">
-		<ion-col size="3">Appointment ID</ion-col>
-		<ion-col size="3">Appointment Doctor</ion-col>
-		<ion-col size="3">Specialization</ion-col>
-		<ion-col size="3">Appointment Date</ion-col>
+	<ion-row  *ngIf="appointmentDetail" class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
+		<ion-col size="2.4" class="text-center">Appointment ID</ion-col>
+		<ion-col size="2.4"  class="text-center">Appointment Doctor</ion-col>
+		<ion-col size="2.4"  class="text-center">Specialization</ion-col>
+		<ion-col size="2.4"  class="text-center">Appointment Date</ion-col>
+		<ion-col size="2.4"  class="text-center">Action</ion-col>
 	</ion-row>
-	<ion-row *ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations">
-		<ion-col size="3">{{item.AppointmentID}}</ion-col>
-		<ion-col size="3">{{item.DoctorName}}</ion-col>
-		<ion-col size="3">{{item.Specialization}}</ion-col>
-		<ion-col size="3">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
+	<ion-row *ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations" class="ion-align-items-center ion-justify-content-center bordered-row">
+		<ion-col size="2.4"  class="text-center">{{item.AppointmentID}}</ion-col>
+		<ion-col size="2.4"  class="text-center">{{item.DoctorName}}</ion-col>
+		<ion-col size="2.4"  class="text-center">{{item.Specialization}}</ion-col>
+		<ion-col size="2.4"  class="text-center">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
+		<ion-col size="2.4"  class="text-center">
+			<ion-button 
+			color="success"
+			[disabled]="item.DoctorName === 'No Doctor'"
+			(click)="payAppointment(item.BillingID)"
+			>Pay Now</ion-button>
+		</ion-col>
 	  </ion-row>
   </ion-grid>
 </ion-content>
+<app-tab></app-tab>

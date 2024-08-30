@@ -10,6 +10,7 @@ import { ListPage } from './list.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FilterSpecializationPipe } from '../pipe/filter-specialization.pipe';
 import { FilterDoctorPipe } from '../pipe/filter-doctor.pipe';
+import { TabPageModule } from 'src/app/shared/tab/tab.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FilterDoctorPipe } from '../pipe/filter-doctor.pipe';
     ListPageRoutingModule,
     SharedModule,
     FilterSpecializationPipe,
-    FilterDoctorPipe
+    FilterDoctorPipe,
+    TabPageModule
   ],
   declarations: [ListPage]
 })
