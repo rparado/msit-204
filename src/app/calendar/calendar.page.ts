@@ -19,7 +19,7 @@ export class CalendarPage {
 	}
 
 	async onDateSelected(event: any) {
-		const selectedDate = new Date(event.detail.value).toLocaleDateString('en-US');;
+		const selectedDate = new Date(event.detail.value).toLocaleDateString('en-US');
 		this.dateService.selectDate(selectedDate);
 		await this.modalCtrl.dismiss();
 	  }

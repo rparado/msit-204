@@ -114,21 +114,23 @@ export class ListPage implements OnInit {
 		
 	}
 	payAppointment(billingId: string) {
+		this.router.navigateByUrl('/bills');
 		localStorage.setItem('billid', billingId);
-		this.appointmentService.payAppointment(billingId)
-			.subscribe((data: any) => {
-				if(data) {
-					this.isPaid = true;
-					this.toastService.successToast(data.message)
-					this.router.navigateByUrl('/bills');
-				} else {
-					this.isPaid = false;
-				}
+		// localStorage.setItem('billid', billingId);
+		// this.appointmentService.payAppointment(billingId)
+		// 	.subscribe((data: any) => {
+		// 		if(data) {
+		// 			this.isPaid = true;
+		// 			this.toastService.successToast(data.message)
+		// 			this.router.navigateByUrl('/bills');
+		// 		} else {
+		// 			this.isPaid = false;
+		// 		}
 				
-			},(err) => {
-				console.log('err ', err);
-				this.toastService.successToast(err.error.message)
-			})
+		// 	},(err) => {
+		// 		console.log('err ', err);
+		// 		this.toastService.successToast(err.error.message)
+		// 	})
 	}
 
 	isPaidFn(billingId: string): boolean {

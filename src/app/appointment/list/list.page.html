@@ -14,24 +14,21 @@
 		  </ion-text>
 		  <ion-grid>
 			<ion-row class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
-				<ion-col size="2.4" class="text-center">Appointment ID</ion-col>
-				<ion-col size="2.4"  class="text-center">Appointment Doctor</ion-col>
-				<ion-col size="2.4"  class="text-center">Specialization</ion-col>
-				<ion-col size="2.4"  class="text-center">Appointment Date</ion-col>
-				<ion-col size="2.4"  class="text-center">Action</ion-col>
+				<ion-col size="3" class="text-center">Appointment ID</ion-col>
+				<ion-col size="3"  class="text-center">Appointment Doctor</ion-col>
+				<ion-col size="3"  class="text-center">Specialization</ion-col>
+				<ion-col size="3"  class="text-center">Appointment Date</ion-col>
 			</ion-row>
-			<ion-row *ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations" class="ion-align-items-center ion-justify-content-center bordered-row">
-				<ion-col size="2.4"  class="text-center">{{item.AppointmentID}}</ion-col>
-				<ion-col size="2.4"  class="text-center">{{item.DoctorName}}</ion-col>
-				<ion-col size="2.4"  class="text-center">{{item.Specialization}}</ion-col>
-				<ion-col size="2.4"  class="text-center">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
-				<ion-col size="2.4"  class="text-center">
-					<ion-button 
-						color="{{ isPaidFn(item.BillingID) ? 'success' : 'primary' }}"
-						(click)="payAppointment(item.BillingID)"
-						[disabled]="isPaidFn(item.BillingID)"
-						>{{ isPaidFn(item.BillingID) ? 'Paid' : 'Pay Now' }}</ion-button>
-					</ion-col>
+			<ion-row 
+				*ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations" 
+				class="ion-align-items-center ion-justify-content-center bordered-row"
+				(click)="payAppointment(item.BillingID)"
+			>
+				<ion-col size="3"  class="text-center">{{item.AppointmentID}}</ion-col>
+				<ion-col size="3"  class="text-center">{{item.DoctorName}}</ion-col>
+				<ion-col size="3"  class="text-center">{{item.Specialization}}</ion-col>
+				<ion-col size="3"  class="text-center">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
+				
 			</ion-row>
 		
 			<ion-row *ngIf="noAppointpoint">

@@ -26,7 +26,7 @@ export class AppointmentPage implements OnInit {
 
 	selectedDoctorId: string = '';
 
-	selectedDate: string;
+	selectedDate: string= '';
 
 	userProfile: any;
 
@@ -46,8 +46,6 @@ export class AppointmentPage implements OnInit {
 		private profileService: PatientServiceService,
 		private router: Router,
 	) { 
-
-		this.selectedDate = new Date().toISOString(); 
 	}
 
 	
@@ -58,6 +56,7 @@ export class AppointmentPage implements OnInit {
 		this.dateService.selectedDate$.subscribe(date => {
 			if (date) {
 				this.appointForm.patchValue({ appointmentDate: date });
+				this.selectedDate = date;
 			}
 		});
 
