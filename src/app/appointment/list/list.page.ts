@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../service/appointment.service';
 import { PatientServiceService } from 'src/app/patient/service/patient-service.service';
 import { combineLatest, map } from 'rxjs';
+import { Specialization } from '../model/specialization';
 
 @Component({
 	selector: 'app-list',
@@ -13,8 +14,14 @@ export class ListPage implements OnInit {
 
 	user: any;
 
+	specailizations: any[] = [];
+
 	appointmentDetail: any[] = [];
 	
+	selectedSpecializationID: string = '';
+
+	doctors: any[] = [];
+
 	constructor(
 		private appointmentService: AppointmentService,
 		private profileService: PatientServiceService,
@@ -24,41 +31,42 @@ export class ListPage implements OnInit {
 		this.getCombinedAPIData();
 	}
 
-	// getAppointments() {
-	// 	this.appointmentService.getAppointments()
-	// 		.subscribe(data => {
-	// 			console.log('data ', data)
-	// 		})
-	// }
-	// getUserProfile() {
-	// 	this.profileService.getProfile()
-	// 		.subscribe(data => {
-
-	// 			console.log('user ', data)
-	// 		})
-	// }
-
 	getCombinedAPIData() {
+		const userId: any = localStorage.getItem('userId');
 		const userProfile$ = this.profileService.getProfile();
-		const appointmentDetail$ = this.appointmentService.getAppointments();
+		const appointmentDetail$ = this.appointmentService.getAppointments(userId);
+		const specializations$ = this.appointmentService.getSpecializations();
 
-		combineLatest([userProfile$, appointmentDetail$]).pipe(
-			map(([userProfile, appointmentDetail]) => {
+		combineLatest([userProfile$, appointmentDetail$, specializations$]).pipe(
+			map(([userProfile, appointmentDetail, specialization]) => {
 				return {
-					userProfile, appointmentDetail
+					userProfile, appointmentDetail, specialization
 				}
 			})
 		).subscribe(
 			{
 				next: (combinedResponse: any) => {
-					console.log('Combined API responses:', combinedResponse);
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
+					this.specailizations = combinedResponse.specialization;
+
+					const specializationIDs = new Set(this.appointmentDetail.map(appointment => appointment.SpecializationID));
+					if (specializationIDs.size > 0) {
+					  this.selectedSpecializationID = Array.from(specializationIDs)[0];
+					  this.fetchDoctors(this.selectedSpecializationID);
+					}
 				},
 				error: (error) => {
 				  console.error('Error combining API calls:', error);
 				}
 			}
 		)
+	}
+
+	fetchDoctors(specializationID: string) {
+		this.appointmentService.getDoctors(specializationID)
+		.subscribe((data: any) => {
+			this.doctors = data;
+		});
 	}
 }

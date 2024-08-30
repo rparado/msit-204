@@ -36,8 +36,8 @@ export class AppointmentService {
 				}),
 			)
 	}
-	getAppointments():  Observable<string> {
-		return this.http.get(this.API_BASE + `appointments/all`)
+	getAppointments(userId: string):  Observable<string> {
+		return this.http.get(this.API_BASE + `appointments/user/` + userId)
 			.pipe(
 				tap((res: any) => {
 					return res;

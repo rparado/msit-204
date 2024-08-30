@@ -15,10 +15,10 @@
 		<ion-col size="3">Specialization</ion-col>
 		<ion-col size="3">Appointment Date</ion-col>
 	</ion-row>
-	<ion-row *ngFor="let item of appointmentDetail">
+	<ion-row *ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations">
 		<ion-col size="3">{{item.AppointmentID}}</ion-col>
-		<ion-col size="3">{{item.DoctorID}}</ion-col>
-		<ion-col size="3">{{item.SpecializationID}}</ion-col>
+		<ion-col size="3">{{item.DoctorName}}</ion-col>
+		<ion-col size="3">{{item.Specialization}}</ion-col>
 		<ion-col size="3">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
 	  </ion-row>
   </ion-grid>

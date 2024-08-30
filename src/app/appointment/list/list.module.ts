@@ -8,6 +8,8 @@ import { ListPageRoutingModule } from './list-routing.module';
 
 import { ListPage } from './list.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FilterSpecializationPipe } from '../pipe/filter-specialization.pipe';
+import { FilterDoctorPipe } from '../pipe/filter-doctor.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     ListPageRoutingModule,
-    SharedModule
+    SharedModule,
+    FilterSpecializationPipe,
+    FilterDoctorPipe
   ],
   declarations: [ListPage]
 })
