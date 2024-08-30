@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AppointmentData, Specialization } from '../model/specialization';
 
@@ -20,7 +20,7 @@ export class AppointmentService {
 				}),
 			)
 	}
-	getDoctors(specializationId: string) {
+	getDoctors(specializationId: string): Observable<string> {
 		return this.http.get(this.API_BASE + `doctors/` + specializationId)
 			.pipe(
 				tap((res: any) => {
@@ -28,8 +28,16 @@ export class AppointmentService {
 				}),
 			)
 	}
-	processAppointment(postData: AppointmentData) {
+	processAppointment(postData: AppointmentData): Observable<AppointmentData> {
 		return this.http.post(this.API_BASE + `appointments/set`, postData)
+			.pipe(
+				tap((res: any) => {
+					return res;
+				}),
+			)
+	}
+	getAppointments():  Observable<string> {
+		return this.http.get(this.API_BASE + `appointments/all`)
 			.pipe(
 				tap((res: any) => {
 					return res;

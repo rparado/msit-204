@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: AppointmentPage
+  },  {
+    path: 'list',
+    loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
   }
+
 ];
 
 @NgModule({

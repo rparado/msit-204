@@ -4,7 +4,7 @@ const config: CapacitorConfig = {
   appId: 'com.dr-anywhere.app',
   appName: 'Dr. anywhere',
   webDir: 'www',
-  bundledWebRuntime: false,
+  bundledWebRuntime: false
 };
 
 export default config;

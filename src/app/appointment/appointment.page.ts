@@ -8,7 +8,7 @@ import { CalendarPage } from '../calendar/calendar.page';
 import { DateService } from '../services/date.service';
 import { ToastService } from '../services/toast.service';
 import { PatientServiceService } from '../patient/service/patient-service.service';
-import { PatientProfile } from '../register/model/user';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-appointment',
@@ -43,7 +43,8 @@ export class AppointmentPage implements OnInit {
 		private fb: FormBuilder,
 		private dateService: DateService,
 		private toastService: ToastService,
-		private profileService: PatientServiceService
+		private profileService: PatientServiceService,
+		private router: Router,
 	) { 
 
 		this.selectedDate = new Date().toISOString(); 
@@ -131,10 +132,11 @@ export class AppointmentPage implements OnInit {
 			"AppointmentDate": this.selectedDate,
 		}
 		this.appointmentService.processAppointment(formData)
-		.subscribe(data => {
+		.subscribe((data: any) => {
 			if(data) {
 				this.hideLoading();
-				this.toastService.successToast(data.message)
+				this.toastService.successToast(data.message);
+				this.router.navigateByUrl('appointment/list');
 			}
 		}, (err) => {
 			this.hideLoading();
