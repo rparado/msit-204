@@ -46,6 +46,7 @@ export class ListPage implements OnInit {
 
 	ngOnInit() {
 		this.getCombinedAPIData();
+
 	}
 	hideLoading() {
 		this.loadingService.hide();
@@ -83,6 +84,13 @@ export class ListPage implements OnInit {
 					  this.selectedSpecializationID = Array.from(specializationIDs)[0];
 					  this.fetchDoctors(this.selectedSpecializationID);
 					}
+
+					// this.appointmentDetail.forEach(appointment => {
+					// 	const doctors = this.getDoctorsBySpecialization(appointment.SpecializationID);
+					// 	console.log('Doctors for Specialization', appointment.SpecializationID, ':', doctors);
+					//   });
+
+					
 				},
 				error: (error) => {
 					this.toastService.errorToast(error.error.message);
@@ -99,9 +107,11 @@ export class ListPage implements OnInit {
 		this.appointmentService.getDoctors(specializationID)
 		.subscribe((data: any) => {
 			this.doctors = data;
+			console.log('this.doctors ', this.doctors)
 		});
-	}
 
+		
+	}
 	payAppointment(billingId: string) {
 		localStorage.setItem('billid', billingId);
 		this.appointmentService.payAppointment(billingId)
@@ -124,4 +134,5 @@ export class ListPage implements OnInit {
 		const billing = this.bills.find(b => b.BillingID === billingId);
 		return billing ? billing.isPaid : false;
 	}
+
 }
