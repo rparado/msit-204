@@ -7,6 +7,8 @@ import { ModalController } from '@ionic/angular';
 import { CalendarPage } from '../calendar/calendar.page';
 import { DateService } from '../services/date.service';
 import { ToastService } from '../services/toast.service';
+import { PatientServiceService } from '../patient/service/patient-service.service';
+import { PatientProfile } from '../register/model/user';
 
 @Component({
 	selector: 'app-appointment',
@@ -26,6 +28,8 @@ export class AppointmentPage implements OnInit {
 
 	selectedDate: string;
 
+	userProfile: any;
+
 	appointForm = this.fb.group({
 		specialization: ['', [Validators.required]],
 		doctor: ['', [Validators.required]],
@@ -38,7 +42,8 @@ export class AppointmentPage implements OnInit {
 		private modalCtrl: ModalController,
 		private fb: FormBuilder,
 		private dateService: DateService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private profileService: PatientServiceService
 	) { 
 
 		this.selectedDate = new Date().toISOString(); 
@@ -54,6 +59,14 @@ export class AppointmentPage implements OnInit {
 				this.appointForm.patchValue({ appointmentDate: date });
 			}
 		});
+
+		this.getUserProfile();
+	}
+	getUserProfile() {
+		this.profileService.getProfile()
+			.subscribe(data => {
+				this.userProfile = data;
+			})
 	}
 	getSpecializations() {
 		this.loadingService.show();
@@ -66,7 +79,6 @@ export class AppointmentPage implements OnInit {
 				}
 			
 			}, (err) => {
-				console.log('err ', err)
 				this.hideLoading();
 
 			})
@@ -113,7 +125,7 @@ export class AppointmentPage implements OnInit {
 		this.loadingService.show();
 		this.loading = true;
 		const formData: any = {
-			"PatientID": localStorage.getItem('userId'),
+			"PatientID": this.userProfile.PatientID,
 			"DoctorID": this.selectedDoctorId,
 			"SpecializationID": this.selectedSpecializationId,
 			"AppointmentDate": this.selectedDate,
