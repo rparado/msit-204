@@ -6,6 +6,8 @@ import { Specialization } from '../model/specialization';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
+import { BillService } from 'src/app/bills/service/bill.service';
+import { Bill } from 'src/app/bills/model/bill';
 
 @Component({
 	selector: 'app-list',
@@ -31,12 +33,15 @@ export class ListPage implements OnInit {
 
 	isPaid: boolean = false;
 
+	bills: Bill[] = [];
+
 	constructor(
 		private appointmentService: AppointmentService,
 		private profileService: PatientServiceService,
 		public loadingService: LoadingService,
 		private toastService: ToastService,
-		private router: Router
+		private router: Router,
+		private billService: BillService
 	) { }
 
 	ngOnInit() {
@@ -51,23 +56,27 @@ export class ListPage implements OnInit {
 		this.loadingService.show();
 		this.loading = true;
 		const userId: any = localStorage.getItem('userId');
+		const billId: any = localStorage.getItem('billid');
 		const userProfile$ = this.profileService.getProfile();
 		const appointmentDetail$ = this.appointmentService.getAppointments(userId);
 		const specializations$ = this.appointmentService.getSpecializations();
+		const bills$ = this.billService.getBills(billId);
 
-		combineLatest([userProfile$, appointmentDetail$, specializations$]).pipe(
-			map(([userProfile, appointmentDetail, specialization]) => {
+		combineLatest([userProfile$, appointmentDetail$, specializations$, bills$]).pipe(
+			map(([userProfile, appointmentDetail, specialization, bills]) => {
 				return {
-					userProfile, appointmentDetail, specialization
+					userProfile, appointmentDetail, specialization, bills
 				}
 			})
 		).subscribe(
 			{
 				next: (combinedResponse: any) => {
+					console.log('combinedResponse ', combinedResponse)
 					this.noAppointpoint = false;
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
+					this.bills = combinedResponse.bills;
 
 					const specializationIDs = new Set(this.appointmentDetail.map(appointment => appointment.SpecializationID));
 					if (specializationIDs.size > 0) {
@@ -100,6 +109,7 @@ export class ListPage implements OnInit {
 				if(data) {
 					this.isPaid = true;
 					this.toastService.successToast(data.message)
+					this.router.navigateByUrl('/bills');
 				} else {
 					this.isPaid = false;
 				}
@@ -108,5 +118,10 @@ export class ListPage implements OnInit {
 				console.log('err ', err);
 				this.toastService.successToast(err.error.message)
 			})
+	}
+
+	isPaidFn(billingId: string): boolean {
+		const billing = this.bills.find(b => b.BillingID === billingId);
+		return billing ? billing.isPaid : false;
 	}
 }
