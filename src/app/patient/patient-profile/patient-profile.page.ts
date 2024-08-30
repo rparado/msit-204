@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { CalendarPage } from 'src/app/calendar/calendar.page';
-import { PatientProfile } from 'src/app/register/model/user';
 import { DateService } from 'src/app/services/date.service';
 import { PatientServiceService } from '../service/patient-service.service';
 import { LoadingService } from 'src/app/shared/service/loading.service';
@@ -40,12 +39,12 @@ export class PatientProfilePage implements OnInit {
 	}
 
 	patientForm = this.fb.group({
-		fname: ['', [Validators.required, Validators.minLength(1)]],
-		lname: ['', [Validators.required, Validators.minLength(1)]],
+		fname: ['', [Validators.required, Validators.minLength(2)]],
+		lname: ['', [Validators.required, Validators.minLength(2)]],
 		gender: ['', [Validators.required]],
 		bday: ['', [Validators.required]],
-		pnum: ['', [Validators.required]],
-		addr: ['', [Validators.required]],
+		pnum: ['', [Validators.required, numericValidator]],
+		addr: [''],
 	});
 
 
@@ -87,4 +86,10 @@ export class PatientProfilePage implements OnInit {
 		this.loadingService.hide();
 		this.loading = false;
 	}
+	
 }
+
+function numericValidator(control: AbstractControl): { [key: string]: boolean } | null {
+	const valid = /^\d+$/.test(control.value);
+	return valid ? null : { numeric: true };
+  }

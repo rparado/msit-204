@@ -26,7 +26,7 @@
 			<ion-text color="danger" *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
 				<small *ngIf="registerForm.get('username')?.hasError('required')">Username is required</small>
 				<small *ngIf="registerForm.get('username')?.hasError('minlength')">Username must be at least 2 characters long</small>
-			  </ion-text>
+			</ion-text>
 		</ion-item>
 		<ion-item class="ion-margin-bottom" >
 			<ion-input 
@@ -38,7 +38,7 @@
 			<ion-text color="danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
 				<small *ngIf="registerForm.get('password')?.hasError('required')">Password is required</small>
 				<small *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters long</small>
-			  </ion-text>
+			</ion-text>
 		</ion-item>
 		<ion-button 
 			color="success"
