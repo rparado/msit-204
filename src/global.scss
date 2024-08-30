@@ -53,3 +53,27 @@ ion-item {
 ion-text {
     margin-left: 0.625rem;
 }
+
+ion-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.center-content {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 189px);
+
+    form {
+        width: 100%;
+    }
+}
+
+.inner-content {
+    width: 100%;
+}
