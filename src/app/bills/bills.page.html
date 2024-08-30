@@ -1,13 +1,32 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>bills</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ng-container *ngIf="loadingService.loading$ | async">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
+<app-header
+  [pageTitle]="'Bills'"
+></app-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">bills</ion-title>
-    </ion-toolbar>
-  </ion-header>
+	<div class="inner-content ion-padding">
+		<ion-text  *ngIf="user">
+			<h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3>
+			<p>Please see your Bill details below.</p>
+		</ion-text>
+		<ion-grid>
+			<ion-row class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
+				<ion-col size="2.4" class="text-center">Billing ID</ion-col>
+				<ion-col size="2.4" class="text-center">Consultation Fee</ion-col>
+				<ion-col size="2.4" class="text-center">Insurance Coverage</ion-col>
+				<ion-col size="2.4" class="text-center">Paid</ion-col>
+				<ion-col size="2.4" class="text-center">Total Amount</ion-col>
+			</ion-row>
+			<ion-row *ngFor="let item of bills" class="ion-align-items-center ion-justify-content-center bordered-row">
+				<ion-col size="2.4" class="text-center">{{item.BillingID}}</ion-col>
+				<ion-col size="2.4" class="text-center">Php {{item.ConsultationFee | number: '1.2-2'}}</ion-col>
+				<ion-col size="2.4" class="text-center">Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-col>
+				<ion-col size="2.4" class="text-center">{{ item.isPaid ? 'Yes' : 'No' }}</ion-col>
+				<ion-col size="2.4" class="text-center">Php {{item.TotalAmount | number: '1.2-2'}}</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	<app-tab></app-tab>
 </ion-content>

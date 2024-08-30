@@ -6,98 +6,100 @@
 ></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <form [formGroup]="patientForm">
-		<ion-item>
-			<ion-input 
-				label="Firstname" 
-				label-placement="floating" 
-				placeholder="Firstname"
-				formControlName="fname"
-			></ion-input>
-			<ion-text color="danger" *ngIf="patientForm.get('fname')?.invalid && patientForm.get('fname')?.touched">
-				<small *ngIf="patientForm.get('fname')?.hasError('required')">Firstname is required</small>
-				<small *ngIf="patientForm.get('fname')?.hasError('minlength')">Firstname must be at least 2 characters long</small>
-			</ion-text>
-		</ion-item>
-
-		<ion-item>
-			<ion-input 
-				label="Lastname" 
-				label-placement="floating" 
-				placeholder="Lastname"
-				formControlName="lname"
-			></ion-input>
-			<ion-text color="danger" *ngIf="patientForm.get('lname')?.invalid && patientForm.get('lname')?.touched">
-				<small *ngIf="patientForm.get('lname')?.hasError('required')">Lastname is required</small>
-				<small *ngIf="patientForm.get('lname')?.hasError('minlength')">Lastname must be at least 2 characters long</small>
-			</ion-text>
-		</ion-item>
-		<ion-item>
-			<ion-label class="ion-padding-start">Gender</ion-label>
-		</ion-item>
-		<ion-item>
-			<ion-radio-group formControlName="gender" class="flex">
-			  <ion-item lines="none">
-				<ion-radio slot="start" value="Male"></ion-radio>
-				<ion-label>Male</ion-label>
+	<div class="inner-content ion-padding">
+		<form [formGroup]="patientForm">
+			<ion-item>
+				<ion-input 
+					label="Firstname" 
+					label-placement="floating" 
+					placeholder="Firstname"
+					formControlName="fname"
+				></ion-input>
+				<ion-text color="danger" *ngIf="patientForm.get('fname')?.invalid && patientForm.get('fname')?.touched">
+					<small *ngIf="patientForm.get('fname')?.hasError('required')">Firstname is required</small>
+					<small *ngIf="patientForm.get('fname')?.hasError('minlength')">Firstname must be at least 2 characters long</small>
+				</ion-text>
+			</ion-item>
+	
+			<ion-item>
+				<ion-input 
+					label="Lastname" 
+					label-placement="floating" 
+					placeholder="Lastname"
+					formControlName="lname"
+				></ion-input>
+				<ion-text color="danger" *ngIf="patientForm.get('lname')?.invalid && patientForm.get('lname')?.touched">
+					<small *ngIf="patientForm.get('lname')?.hasError('required')">Lastname is required</small>
+					<small *ngIf="patientForm.get('lname')?.hasError('minlength')">Lastname must be at least 2 characters long</small>
+				</ion-text>
+			</ion-item>
+			<ion-item>
+				<ion-label class="ion-padding-start">Gender</ion-label>
+			</ion-item>
+			<ion-item>
+				<ion-radio-group formControlName="gender" class="flex">
+				  <ion-item lines="none">
+					<ion-radio slot="start" value="Male"></ion-radio>
+					<ion-label>Male</ion-label>
+				  </ion-item>
+				  <ion-item lines="none">
+					<ion-radio slot="start" value="Female"></ion-radio>
+					<ion-label>Female</ion-label>
+				  </ion-item>
+				  <ion-item lines="none">
+					<ion-radio slot="start" value="alien"></ion-radio>
+					<ion-label>Prefer not to say</ion-label>
+				  </ion-item>
+				  <ion-text color="danger" *ngIf="patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched">
+					<small *ngIf="patientForm.get('gender')?.hasError('required')">Gender is required</small>
+				</ion-text>
+				</ion-radio-group>
 			  </ion-item>
-			  <ion-item lines="none">
-				<ion-radio slot="start" value="Female"></ion-radio>
-				<ion-label>Female</ion-label>
-			  </ion-item>
-			  <ion-item lines="none">
-				<ion-radio slot="start" value="alien"></ion-radio>
-				<ion-label>Prefer not to say</ion-label>
-			  </ion-item>
-			  <ion-text color="danger" *ngIf="patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched">
-				<small *ngIf="patientForm.get('gender')?.hasError('required')">Gender is required</small>
-			</ion-text>
-			</ion-radio-group>
-		  </ion-item>
-		
-		<ion-item>
-			<ion-input 
-				label="Birthday"
-				label-placement="floating" 
-				readonly
-				formControlName="bday"
-				[value]="selectedDate"
-				(click)="openDatePicker()"
-				>
-			</ion-input>
-			<ion-text color="danger" *ngIf="patientForm.get('bday')?.invalid && patientForm.get('bday')?.touched">
-				<small *ngIf="patientForm.get('bday')?.hasError('required')">Birthdate is required</small>
-			</ion-text>
-		</ion-item>
-
-		<ion-item>
-			<ion-input 
-				label="Phone Number" 
-				label-placement="floating" 
-				placeholder="Phone Number"
-				formControlName="pnum"
-			></ion-input>
-			<ion-text color="danger" *ngIf="patientForm.get('pnum')?.invalid && patientForm.get('pnum')?.touched">
-				<small *ngIf="patientForm.get('pnum')?.hasError('required')">Phone number is required</small>
-				<small *ngIf="patientForm.get('pnum')?.hasError('numeric')">Phone number must be numeric</small>
-			</ion-text>
-		</ion-item>
-
-		<ion-item>
-			<ion-input 
-				label="Address" 
-				label-placement="floating" 
-				placeholder="Address"
-				formControlName="addr"
-			></ion-input>
-		</ion-item>
-		<ion-button 
-			color="success"
-			expand="block"
-			(click)="onUpdate()"
-			[disabled]="!patientForm.valid || loading"
-		>Update Profile</ion-button>
-	</form>
+			
+			<ion-item>
+				<ion-input 
+					label="Birthday"
+					label-placement="floating" 
+					readonly
+					formControlName="bday"
+					[value]="selectedDate"
+					(click)="openDatePicker()"
+					>
+				</ion-input>
+				<ion-text color="danger" *ngIf="patientForm.get('bday')?.invalid && patientForm.get('bday')?.touched">
+					<small *ngIf="patientForm.get('bday')?.hasError('required')">Birthdate is required</small>
+				</ion-text>
+			</ion-item>
+	
+			<ion-item>
+				<ion-input 
+					label="Phone Number" 
+					label-placement="floating" 
+					placeholder="Phone Number"
+					formControlName="pnum"
+				></ion-input>
+				<ion-text color="danger" *ngIf="patientForm.get('pnum')?.invalid && patientForm.get('pnum')?.touched">
+					<small *ngIf="patientForm.get('pnum')?.hasError('required')">Phone number is required</small>
+					<small *ngIf="patientForm.get('pnum')?.hasError('numeric')">Phone number must be numeric</small>
+				</ion-text>
+			</ion-item>
+	
+			<ion-item>
+				<ion-input 
+					label="Address" 
+					label-placement="floating" 
+					placeholder="Address"
+					formControlName="addr"
+				></ion-input>
+			</ion-item>
+			<ion-button 
+				color="success"
+				expand="block"
+				(click)="onUpdate()"
+				[disabled]="!patientForm.valid || loading"
+			>Update Profile</ion-button>
+		</form>
+	</div>
 	<app-tab></app-tab>
 </ion-content>
 

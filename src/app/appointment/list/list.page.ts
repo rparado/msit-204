@@ -94,6 +94,7 @@ export class ListPage implements OnInit {
 	}
 
 	payAppointment(billingId: string) {
+		localStorage.setItem('billid', billingId);
 		this.appointmentService.payAppointment(billingId)
 			.subscribe((data: any) => {
 				if(data) {
