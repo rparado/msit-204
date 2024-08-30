@@ -57,16 +57,17 @@ export class ListPage implements OnInit {
 		this.loadingService.show();
 		this.loading = true;
 		const userId: any = localStorage.getItem('userId');
-		const billId: any = localStorage.getItem('billid');
+		//const billId: any = localStorage.getItem('billid');
+
 		const userProfile$ = this.profileService.getProfile();
 		const appointmentDetail$ = this.appointmentService.getAppointments(userId);
 		const specializations$ = this.appointmentService.getSpecializations();
-		const bills$ = this.billService.getBills(billId);
+		//const bills$ = this.billService.getBills(billId);
 
-		combineLatest([userProfile$, appointmentDetail$, specializations$, bills$]).pipe(
-			map(([userProfile, appointmentDetail, specialization, bills]) => {
+		combineLatest([userProfile$, appointmentDetail$, specializations$]).pipe(
+			map(([userProfile, appointmentDetail, specialization]) => {
 				return {
-					userProfile, appointmentDetail, specialization, bills
+					userProfile, appointmentDetail, specialization
 				}
 			})
 		).subscribe(
@@ -77,7 +78,7 @@ export class ListPage implements OnInit {
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
-					this.bills = combinedResponse.bills;
+					//this.bills = combinedResponse.bills;
 
 					const specializationIDs = new Set(this.appointmentDetail.map(appointment => appointment.SpecializationID));
 					if (specializationIDs.size > 0) {
@@ -93,7 +94,7 @@ export class ListPage implements OnInit {
 					
 				},
 				error: (error) => {
-					this.toastService.errorToast(error.error.message);
+					this.toastService.errorToast('Error in processing request!');
 					this.noAppointpoint = true;
 				  	setTimeout(() =>  {
 						return this.router.navigateByUrl('/appointment');

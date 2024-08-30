@@ -43,6 +43,7 @@ export class PatientProfilePage implements OnInit {
 		lname: ['', [Validators.required, Validators.minLength(2)]],
 		gender: ['', [Validators.required]],
 		bday: ['', [Validators.required]],
+		insurance: ['', [Validators.required]],
 		pnum: ['', [Validators.required, numericValidator]],
 		addr: [''],
 	});
@@ -69,6 +70,7 @@ export class PatientProfilePage implements OnInit {
 			BirthDate: formData.bday,
 			ContactInfo: formData.pnum,
 			Address: formData.addr,
+			InsuranceCoverage: formData.insurance,
 			UserID: localStorage.getItem("userId")
 		}
 

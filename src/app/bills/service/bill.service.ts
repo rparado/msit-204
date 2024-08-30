@@ -13,7 +13,7 @@ export class BillService {
     private http: HttpClient
   ) { }
 
-  getBills(billingId: number): Observable<Bill> {
+  getBills(billingId: string): Observable<Bill> {
 		return this.http.get(this.API_BASE + `billing/` + billingId)
 			.pipe(
 				tap((res: any) => {

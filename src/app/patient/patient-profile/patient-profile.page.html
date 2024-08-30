@@ -70,6 +70,14 @@
 					<small *ngIf="patientForm.get('bday')?.hasError('required')">Birthdate is required</small>
 				</ion-text>
 			</ion-item>
+
+			<ion-item>
+				<ion-select label="Insurance Coverage" aria-label="Insurance Coverage" interface="action-sheet">
+					<ion-select-option value="bronze">Bronze</ion-select-option>
+					<ion-select-option value="silver">Silver</ion-select-option>
+					<ion-select-option value="gold">Gold</ion-select-option>
+				  </ion-select>
+			</ion-item>
 	
 			<ion-item>
 				<ion-input 
