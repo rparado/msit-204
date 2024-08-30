@@ -13,18 +13,33 @@
 		</ion-text>
 		<ion-grid>
 			<ion-row class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
-				<ion-col size="2.4" class="text-center">Billing ID</ion-col>
-				<ion-col size="2.4" class="text-center">Consultation Fee</ion-col>
-				<ion-col size="2.4" class="text-center">Insurance Coverage</ion-col>
-				<ion-col size="2.4" class="text-center">Paid</ion-col>
-				<ion-col size="2.4" class="text-center">Total Amount</ion-col>
+				<ion-col size="2" class="text-center">Billing ID</ion-col>
+				<ion-col size="2" class="text-center">Consultation Fee</ion-col>
+				<ion-col size="2" class="text-center">Insurance Coverage</ion-col>
+				<ion-col size="2" class="text-center">Paid</ion-col>
+				<ion-col size="2" class="text-center">Total Amount</ion-col>
+				<ion-col size="2" class="text-center">Action</ion-col>
 			</ion-row>
 			<ion-row *ngFor="let item of bills" class="ion-align-items-center ion-justify-content-center bordered-row">
-				<ion-col size="2.4" class="text-center">{{item.BillingID}}</ion-col>
-				<ion-col size="2.4" class="text-center">Php {{item.ConsultationFee | number: '1.2-2'}}</ion-col>
-				<ion-col size="2.4" class="text-center">Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-col>
-				<ion-col size="2.4" class="text-center">{{ item.isPaid ? 'Yes' : 'No' }}</ion-col>
-				<ion-col size="2.4" class="text-center">Php {{item.TotalAmount | number: '1.2-2'}}</ion-col>
+				<ion-col size="2" class="text-center">{{item.BillingID}}</ion-col>
+				<ion-col size="2" class="text-center">Php {{item.ConsultationFee | number: '1.2-2'}}</ion-col>
+				<ion-col size="2" class="text-center">Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-col>
+				<ion-col size="2" class="text-center">{{ item.isPaid ? 'Yes' : 'No' }}</ion-col>
+				<ion-col size="2" class="text-center">Php {{item.TotalAmount | number: '1.2-2'}}</ion-col>
+				<ion-col size="2">
+					<ion-button 
+						(click)="pay()"
+						[disabled]="isPaidFn(item.BillingID)"
+						expand="block"
+						size="default"
+						color="{{ isPaidFn(item.BillingID) ? 'success' : 'primary' }}"
+					>
+					{{ isPaidFn(item.BillingID) ? 'Paid' : 'Pay Now' }}
+					</ion-button>
+				</ion-col>
+			</ion-row>
+			<ion-row class="ion-padding">
+				
 			</ion-row>
 		</ion-grid>
 	</div>

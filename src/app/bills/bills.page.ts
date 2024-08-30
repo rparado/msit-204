@@ -5,6 +5,7 @@ import { Bill } from './model/bill';
 import { PatientServiceService } from '../patient/service/patient-service.service';
 import { combineLatest, map } from 'rxjs';
 import { ToastService } from '../services/toast.service';
+import { AppointmentService } from '../appointment/service/appointment.service';
 
 @Component({
 	selector: 'app-bills',
@@ -23,6 +24,7 @@ export class BillsPage implements OnInit {
 		private billService: BillService,
 		private profileService: PatientServiceService,
 		private toastService: ToastService,
+		private appointmentService: AppointmentService,
 	) { }
 
 	ngOnInit() {
@@ -59,6 +61,25 @@ export class BillsPage implements OnInit {
 				}
 			}
 		)
+	}
+	pay() {
+		const billId: any = localStorage.getItem('billid');
+		this.appointmentService.payAppointment(billId)
+			.subscribe((data: any) => {
+				if(data) {
+					this.toastService.successToast(data.message)
+					this.billService.getBills(billId)
+				} 
+				
+			},(err) => {
+				console.log('err ', err);
+				this.toastService.successToast(err.error.message)
+			})
+	}
+
+	isPaidFn(billingId: string): boolean {
+		const billing = this.bills.find(b => b.BillingID === billingId);
+		return billing ? billing.isPaid : false;
 	}
 
 }

@@ -41,7 +41,6 @@ export class ListPage implements OnInit {
 		public loadingService: LoadingService,
 		private toastService: ToastService,
 		private router: Router,
-		private billService: BillService
 	) { }
 
 	ngOnInit() {
@@ -57,12 +56,10 @@ export class ListPage implements OnInit {
 		this.loadingService.show();
 		this.loading = true;
 		const userId: any = localStorage.getItem('userId');
-		//const billId: any = localStorage.getItem('billid');
 
 		const userProfile$ = this.profileService.getProfile();
 		const appointmentDetail$ = this.appointmentService.getAppointments(userId);
 		const specializations$ = this.appointmentService.getSpecializations();
-		//const bills$ = this.billService.getBills(billId);
 
 		combineLatest([userProfile$, appointmentDetail$, specializations$]).pipe(
 			map(([userProfile, appointmentDetail, specialization]) => {
@@ -78,7 +75,6 @@ export class ListPage implements OnInit {
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
-					//this.bills = combinedResponse.bills;
 
 					const specializationIDs = new Set(this.appointmentDetail.map(appointment => appointment.SpecializationID));
 					if (specializationIDs.size > 0) {
@@ -116,26 +112,6 @@ export class ListPage implements OnInit {
 	payAppointment(billingId: string) {
 		this.router.navigateByUrl('/bills');
 		localStorage.setItem('billid', billingId);
-		// localStorage.setItem('billid', billingId);
-		// this.appointmentService.payAppointment(billingId)
-		// 	.subscribe((data: any) => {
-		// 		if(data) {
-		// 			this.isPaid = true;
-		// 			this.toastService.successToast(data.message)
-		// 			this.router.navigateByUrl('/bills');
-		// 		} else {
-		// 			this.isPaid = false;
-		// 		}
-				
-		// 	},(err) => {
-		// 		console.log('err ', err);
-		// 		this.toastService.successToast(err.error.message)
-		// 	})
+		
 	}
-
-	isPaidFn(billingId: string): boolean {
-		const billing = this.bills.find(b => b.BillingID === billingId);
-		return billing ? billing.isPaid : false;
-	}
-
 }
