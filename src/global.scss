@@ -59,6 +59,7 @@ ion-content {
     justify-content: center;
     align-items: center;
     height: 100%;
+
 }
 .center-content {
     width: 100%;
@@ -76,4 +77,13 @@ ion-content {
 
 .inner-content {
     width: 100%;
+}
+
+.tabs {
+    z-index: 1;
+    position: static;
+}
+.inner-content {
+    z-index: 2;
+    position: relative;
 }

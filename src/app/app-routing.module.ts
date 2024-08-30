@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'tab',
     loadChildren: () => import('./shared/tab/tab.module').then( m => m.TabPageModule)
   },
+  {
+    path: 'bills',
+    loadChildren: () => import('./bills/bills.module').then( m => m.BillsPageModule)
+  },
 ];
 
 @NgModule({

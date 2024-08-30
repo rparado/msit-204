@@ -1,9 +1,10 @@
+<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
 <app-header
 	[pageTitle]="'Patient'"
 ></app-header>
-<ng-container *ngIf="loadingService.loading$ | async">
-	<ion-progress-bar type="indeterminate"></ion-progress-bar>
-</ng-container>
+
 <ion-content class="ion-padding">
 	<ng-container *ngIf="userProfile">
 		<ion-avatar class="avatar">
@@ -31,6 +32,5 @@
 		<p class="ion-text-center">Please update your profile first.</p>
 		<ion-button fill="solid"  expand="block" [routerLink]="['/patient/patient-profile']" color="success">Update Profile</ion-button>
 	</ng-container>
-	
+	<app-tab></app-tab>
 </ion-content>
-<app-tab></app-tab>

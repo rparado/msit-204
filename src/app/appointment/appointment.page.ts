@@ -131,6 +131,7 @@ export class AppointmentPage implements OnInit {
 			"SpecializationID": this.selectedSpecializationId,
 			"AppointmentDate": this.selectedDate,
 		}
+		this.appointForm.reset();
 		this.appointmentService.processAppointment(formData)
 		.subscribe((data: any) => {
 			if(data) {
