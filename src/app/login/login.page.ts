@@ -44,8 +44,7 @@ export class LoginPage implements OnInit {
 			this.authService.login(formData.username, formData.password).subscribe(
 				async (data) => {
 					if (data) {
-						this.loadingService.hide();
-						this.loading = false;
+						this.hideLoading();
 						this.toastService.successToast('Login Successful!')
 						if(data.profileUpdated) {
 							this.router.navigateByUrl('/appointment');
@@ -54,11 +53,13 @@ export class LoginPage implements OnInit {
 						}
 						
 					} else {
-						this.toastService.errorToast('Error logging in')
+						this.hideLoading();
+						await this.toastService.errorToast('Error logging in')
 					}
 				},
 				async () => {
-					this.toastService.errorToast('Error logging in')
+					this.hideLoading();
+					await this.toastService.errorToast('Error logging in')
 				}
 			);
 		} else {

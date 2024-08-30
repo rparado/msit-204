@@ -20,6 +20,9 @@
 					placeholder="Username"
 					formControlName="username"
 				></ion-input>
+				<ion-text color="danger" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+					<small *ngIf="loginForm.get('username')?.hasError('required')">Username is required</small>
+				</ion-text>
 			</ion-item>
 			<ion-item class="ion-margin-bottom" lines="none">
 				<ion-input 
@@ -29,6 +32,9 @@
 					formControlName="password"
 					>
 				</ion-input>
+				<ion-text color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+					<small *ngIf="loginForm.get('password')?.hasError('required')">Password is required</small>
+				</ion-text>
 			</ion-item>
 			<ion-button 
 				color="success"
