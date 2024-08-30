@@ -23,6 +23,9 @@
 					{{item.Specialization}}
 				</ion-select-option>
 			  </ion-select>
+			  <ion-text color="danger" *ngIf="appointForm.get('specialization')?.invalid && appointForm.get('specialization')?.touched">
+				<small *ngIf="appointForm.get('specialization')?.hasError('required')">Specialization is required</small>
+			</ion-text>
 		</ion-item>
 		<ion-item>
 			<ion-select 
@@ -40,6 +43,9 @@
 					{{item.FirstName}} {{item.LastName}}
 				</ion-select-option>
 			  </ion-select>
+			  <ion-text color="danger" *ngIf="appointForm.get('doctor')?.invalid && appointForm.get('doctor')?.touched">
+				<small *ngIf="appointForm.get('doctor')?.hasError('required')">Doctor is required</small>
+			</ion-text>
 		</ion-item>
 		<ion-item>
 			<ion-input 
@@ -51,6 +57,9 @@
 				(click)="openDatePicker()"
 				>
 			</ion-input>
+			<ion-text color="danger" *ngIf="appointForm.get('appointmentDate')?.invalid && appointForm.get('appointmentDate')?.touched">
+				<small *ngIf="appointForm.get('appointmentDate')?.hasError('required')">Appointment date is required</small>
+			</ion-text>
 		</ion-item>
 		<ion-button 
 			color="success"
