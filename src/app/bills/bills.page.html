@@ -18,10 +18,7 @@
 		</ion-card>
 
 		<ion-card 
-			*ngFor="let item of bills" 
-			color="{{ isPaidFn(item.BillingID) ? 'secondary' : 'warning' }}"
-			
-		>
+			*ngFor="let item of bills">
 			<ion-card-header>
 			  <ion-card-title>
 				<strong>Billing ID: {{item.BillingID}}</strong>
@@ -32,14 +29,14 @@
 		  
 			<ion-card-content class="no-l-padding">
 			  <ion-list class="{{ isPaidFn(item.BillingID) ? 'paid' : 'unpaid' }}">
-				<ion-item>
-					<ion-text><strong>Insurance Coverage: </strong>Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-text>
+				<ion-item >
+					<ion-text class="white"><strong>Insurance Coverage: </strong>Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-text>
 				</ion-item>
 				<ion-item>
-					<ion-text><strong>Consultation Fee: </strong>Php {{item.ConsultationFee | number: '1.2-2'}}</ion-text>
+					<ion-text class="white"><strong>Consultation Fee: </strong>Php {{item.ConsultationFee | number: '1.2-2'}}</ion-text>
 				</ion-item>
 				<ion-item>
-					<ion-text><strong>Total Amount: </strong>Php {{item.TotalAmount | number: '1.2-2'}}</ion-text>
+					<ion-text class="white"><strong>Total Amount: </strong>Php {{item.TotalAmount | number: '1.2-2'}}</ion-text>
 				</ion-item>
 			  </ion-list>
 			  	<div class="btn-wrapper">

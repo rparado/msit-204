@@ -21,7 +21,7 @@
 		  </ion-card>
 		  <ion-card 
 		  	*ngFor="let item of appointmentDetail | filterSpecialization: specailizations"
-			(click)="payAppointment(item.BillingID)"
+			(click)="item.status !== 'Completed' && payAppointment(item.BillingID)"
 		>
 			<ion-card-header>
 				<ion-card-title color="primary" class="card-title">
