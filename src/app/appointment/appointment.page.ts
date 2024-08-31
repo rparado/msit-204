@@ -36,6 +36,7 @@ export class AppointmentPage implements OnInit {
 		appointmentDate: ['', [Validators.required]],
 	});
 
+
 	constructor(
 		public loadingService: LoadingService,
 		private appointmentService: AppointmentService,
@@ -47,18 +48,16 @@ export class AppointmentPage implements OnInit {
 		private router: Router,
 		private cdr: ChangeDetectorRef
 	) { 
+		
 	}
-
-	
-
 	ngOnInit() {
 		this.cdr.detectChanges();
 		this.getSpecializations();
 
-		this.dateService.selectedDate$.subscribe(date => {
+		this.dateService.selectedDate$.subscribe((date) => {
 			if (date) {
 				this.appointForm.patchValue({ appointmentDate: date });
-				this.selectedDate = date;
+				this.selectedDate = date;		
 			}
 		});
 

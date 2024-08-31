@@ -75,26 +75,11 @@ export class ListPage implements OnInit {
 		).subscribe(
 			{
 				next: (combinedResponse: any) => {
-					console.log('combinedResponse ', combinedResponse)
-
 					this.hideLoading();
 					this.noAppointpoint = false;
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
-
-					const specializationIDs = new Set(this.appointmentDetail.map(appointment => appointment.SpecializationID));
-					if (specializationIDs.size > 0) {
-					  this.selectedSpecializationID = Array.from(specializationIDs)[0];
-					  this.fetchDoctors(this.selectedSpecializationID);
-					}
-
-					// this.appointmentDetail.forEach(appointment => {
-					// 	const doctors = this.getDoctorsBySpecialization(appointment.SpecializationID);
-					// 	console.log('Doctors for Specialization', appointment.SpecializationID, ':', doctors);
-					//   });
-
-					
 				},
 				error: (error) => {
 					this.toastService.errorToast('Error in processing request!');
@@ -105,16 +90,6 @@ export class ListPage implements OnInit {
 				}
 			}
 		)
-	}
-
-	fetchDoctors(specializationID: string) {
-		this.appointmentService.getDoctors(specializationID)
-		.subscribe((data: any) => {
-			this.doctors = data;
-			console.log('this.doctors ', this.doctors)
-		});
-
-		
 	}
 	payAppointment(billingId: string) {
 		this.router.navigateByUrl('/bills');
