@@ -3,40 +3,45 @@
   [pageTitle]="'Appointment Details'"
 >
 </app-header>
-<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
-	<ion-progress-bar type="indeterminate"></ion-progress-bar>
-</ng-container>
-<ion-content [fullscreen]="true" class="ion-padding">
 
+<ion-content [fullscreen]="true">
+	<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
+		<ion-progress-bar type="indeterminate"></ion-progress-bar>
+	</ng-container>
 	<div class="inner-content ion-padding">
-		<ion-text  *ngIf="user">
-			<h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3>
-			<p>Please see your appointment details below. Click pay now button to process your appointment.</p>
-		  </ion-text>
-		  <ion-grid>
-			<ion-row class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
-				<ion-col size="3" class="text-center">Appointment ID</ion-col>
-				<ion-col size="3"  class="text-center">Appointment Doctor</ion-col>
-				<ion-col size="3"  class="text-center">Specialization</ion-col>
-				<ion-col size="3"  class="text-center">Appointment Date</ion-col>
-			</ion-row>
-			<ion-row 
-				*ngFor="let item of appointmentDetail | filterSpecialization: specailizations" 
-				class="ion-align-items-center ion-justify-content-center bordered-row"
-				(click)="payAppointment(item.BillingID)"
-			>
-				<ion-col size="3"  class="text-center">{{item.AppointmentID}}</ion-col>
-				<ion-col size="3"  class="text-center">{{item.DoctorID}}</ion-col>
-				<ion-col size="3"  class="text-center">{{item.Specialization}}</ion-col>
-				<ion-col size="3"  class="text-center">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
-				
-			</ion-row>
-		
-			<ion-row *ngIf="noAppointpoint">
-				<ion-col size="12" class="text-center ion-padding">No Data</ion-col>
-			</ion-row>
-		  </ion-grid>
+		  <ion-card   *ngIf="user">
+			<ion-card-header>
+				<ion-card-title><h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3></ion-card-title>
+			</ion-card-header>
+
+			<ion-card-content>
+				<p>Please see your appointment details below. Click pay now button to process your appointment.</p>
+			</ion-card-content>
+
+		  </ion-card>
+		  <ion-card 
+		  	*ngFor="let item of appointmentDetail | filterSpecialization: specailizations"
+			(click)="payAppointment(item.BillingID)"
+		>
+			<ion-card-header>
+					<ion-card-title>
+					<strong>Appointment ID: {{item.AppointmentID}}</strong>
+					
+				</ion-card-title>
+			  </ion-card-header>
+			  <ion-card-content>
+				<ion-item>
+					<ion-text><strong>Doctor: </strong>{{item.DoctorID}}</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-text><strong>Specialization: </strong>{{item.Specialization }}</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-text><strong>Appointment date and time: </strong>{{item.AppointmentDate | date: "YYYY-MM-DD HH:mm:ss a"}}</ion-text>
+				</ion-item>
+			  </ion-card-content>
+		  </ion-card>
 	</div>
   
-  <app-tab></app-tab>
+  <app-tab class="tabs"></app-tab>
 </ion-content>

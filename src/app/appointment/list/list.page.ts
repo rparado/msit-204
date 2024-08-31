@@ -76,6 +76,8 @@ export class ListPage implements OnInit {
 			{
 				next: (combinedResponse: any) => {
 					console.log('combinedResponse ', combinedResponse)
+
+					this.hideLoading();
 					this.noAppointpoint = false;
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail

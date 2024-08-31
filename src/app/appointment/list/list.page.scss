@@ -4,3 +4,11 @@
 .bordered-row {
     border: 1px solid #fff;
 }
+ion-content {
+    --overflow: hidden;
+}
+
+.inner-content {
+    height: 86vh;
+    overflow: auto;
+}
