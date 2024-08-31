@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PatientServiceService } from './service/patient-service.service';
 import { LoadingService } from '../shared/service/loading.service';
 import { ToastService } from '../services/toast.service';
@@ -16,16 +16,19 @@ export class PatientPage implements OnInit {
 	constructor(
 		private patientService: PatientServiceService,
 		public loadingService: LoadingService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private cdr: ChangeDetectorRef
 	) { }
 
 	ngOnInit() {
+		this.cdr.detectChanges();
 		this.getProfile();
 	}
 
 	getProfile() {
 		this.loadingService.show();
 		this.loading = true;
+		this.toastService.successToast('Loading data. Please wait...');
 
 		this.patientService.getProfile()
 		.subscribe((data: any) => {
