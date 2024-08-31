@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../service/appointment.service';
 import { PatientServiceService } from 'src/app/patient/service/patient-service.service';
-import { combineLatest, map } from 'rxjs';
+import { combineLatest, map, Subscription } from 'rxjs';
 import { Specialization } from '../model/specialization';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 import { BillService } from 'src/app/bills/service/bill.service';
 import { Bill } from 'src/app/bills/model/bill';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
 	selector: 'app-list',
@@ -36,14 +37,13 @@ export class ListPage implements OnInit {
 	bills: Bill[] = [];
 
 
-
 	constructor(
 		private appointmentService: AppointmentService,
 		private profileService: PatientServiceService,
 		public loadingService: LoadingService,
 		private toastService: ToastService,
 		private router: Router,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
 	) { }
 
 	ngOnInit() {
@@ -111,4 +111,6 @@ export class ListPage implements OnInit {
 		localStorage.setItem('billid', billingId);
 		
 	}
+
+	
 }

@@ -49,6 +49,7 @@ export class AuthService {
 		localStorage.removeItem('token');
 		localStorage.removeItem('userId');
 		localStorage.removeItem('billid');
-		localStorage.removeItem('profileUpdated')
+		localStorage.removeItem('profileUpdated');
+		localStorage.removeItem('billCount');
 	}
 }
