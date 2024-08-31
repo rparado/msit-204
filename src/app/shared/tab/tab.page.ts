@@ -23,16 +23,15 @@ export class TabPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    const profileUpdated =  localStorage.getItem('profileUpdated');
-
     this.cdr.detectChanges();
+    const profileUpdated =  localStorage.getItem('profileUpdated');
 
     if(profileUpdated === null || profileUpdated === 'false') {
         this.tabActive = false;
     } else {
       this.tabActive = true;
     }
+    console.log('  this.tabActive = true; ',  this.tabActive)
 
     this.totalBillSubscription = this.localStorageService.count$.subscribe(data => {
 			if(data > 0) {

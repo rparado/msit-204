@@ -89,6 +89,7 @@ export class PatientProfilePage implements OnInit {
 					this.hideLoading();
 					this.router.navigateByUrl('/appointment')
 					this.toastService.successToast(data.message)
+					localStorage.setItem('profileUpdated', 'true')
 				}
 			}, (err) => {
 				this.toastService.errorToast(err.error.message)
