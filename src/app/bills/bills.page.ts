@@ -6,6 +6,7 @@ import { PatientServiceService } from '../patient/service/patient-service.servic
 import { forkJoin, map } from 'rxjs';
 import { ToastService } from '../services/toast.service';
 import { AppointmentService } from '../appointment/service/appointment.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-bills',
@@ -25,7 +26,8 @@ export class BillsPage implements OnInit {
 		private profileService: PatientServiceService,
 		private toastService: ToastService,
 		private appointmentService: AppointmentService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private router: Router
 	) { }
 
 	ngOnInit() {
@@ -59,13 +61,14 @@ export class BillsPage implements OnInit {
 						this.hideLoading();
 						this.user = combinedResponse.userProfile;
 						this.bills = combinedResponse.bills;
-					} else {
-						console.log('sadsd')
 					}
 
 				},
 				error: (error) => {
 					this.toastService.errorToast(error.error.message);
+					setTimeout(() => {
+						this.router.navigateByUrl('/appointment/list');
+					}, 2000)
 				}
 			}
 		)

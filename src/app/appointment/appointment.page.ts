@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LoadingService } from '../shared/service/loading.service';
 import { AppointmentService } from './service/appointment.service';
 import { Doctors, Specialization } from './model/specialization';
@@ -45,12 +45,14 @@ export class AppointmentPage implements OnInit {
 		private toastService: ToastService,
 		private profileService: PatientServiceService,
 		private router: Router,
+		private cdr: ChangeDetectorRef
 	) { 
 	}
 
 	
 
 	ngOnInit() {
+		this.cdr.detectChanges();
 		this.getSpecializations();
 
 		this.dateService.selectedDate$.subscribe(date => {
