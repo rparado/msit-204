@@ -12,6 +12,10 @@
 		<ion-icon name="receipt-outline"></ion-icon>
 		Bills
 	  </ion-tab-button>
+	  <ion-tab-button  [routerLink]="['/bills']" [hidden]="!tabActive" routerLinkActive="tab-active"  [routerLinkActiveOptions]="{ exact: true }">
+		<ion-icon name="time-outline"></ion-icon>
+		History
+	  </ion-tab-button>
 	  <ion-tab-button [routerLink]="['/patient']" routerLinkActive="tab-active"  [routerLinkActiveOptions]="{ exact: true }">
 		<ion-icon name="person-outline"></ion-icon>
 		Profile

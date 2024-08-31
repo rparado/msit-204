@@ -52,6 +52,10 @@ const routes: Routes = [
     path: 'bills',
     loadChildren: () => import('./bills/bills.module').then( m => m.BillsPageModule)
   },
+  {
+    path: 'history',
+    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+  },
 ];
 
 @NgModule({

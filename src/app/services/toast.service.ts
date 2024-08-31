@@ -11,9 +11,10 @@ export class ToastService {
 	async errorToast(message?: string) {
 		const toast = await this.toastController.create({
 			message: message,
-			duration: 2000,
-			position: 'bottom',
+			duration: 1000,
+			position: 'top',
 			color: 'danger',
+			swipeGesture:"vertical"
 		});
 
 		await toast.present();
@@ -22,9 +23,10 @@ export class ToastService {
 	async successToast(message?: string) {
 		const toast = await this.toastController.create({
 			message: message,
-			duration: 2000,
-			position: 'bottom',
+			duration: 1000,
+			position: 'top',
 			color: 'success',
+			swipeGesture:"vertical"
 		});
 
 		await toast.present();
