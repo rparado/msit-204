@@ -85,7 +85,6 @@ export class BillsPage implements OnInit {
 				} 
 				
 			},(err) => {
-				console.log('err ', err);
 				this.toastService.successToast(err.error.message);
 				this.router.navigateByUrl('/appointment');
 			})
