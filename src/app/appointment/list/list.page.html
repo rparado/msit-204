@@ -26,7 +26,7 @@
 			<ion-card-header>
 				<ion-card-title color="primary" class="card-title">
 					<strong>Appointment ID: {{item.AppointmentID}}</strong>
-					
+					<ion-badge color="{{ item.status === 'Upcoming' ? 'danger'  : 'success'}}">{{ item.status }}</ion-badge>
 				</ion-card-title>
 			  </ion-card-header>
 			  <ion-card-content class="no-l-padding">

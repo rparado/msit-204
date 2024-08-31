@@ -35,6 +35,8 @@ export class ListPage implements OnInit {
 
 	bills: Bill[] = [];
 
+
+
 	constructor(
 		private appointmentService: AppointmentService,
 		private profileService: PatientServiceService,
@@ -62,6 +64,8 @@ export class ListPage implements OnInit {
 		this.loading = true;
 		this.toastService.successToast('Loading data. Please wait...');
 
+		const currentDate = new Date();
+
 		const userId: any = localStorage.getItem('userId');
 
 		const userProfile$ = this.profileService.getProfile();
@@ -83,6 +87,14 @@ export class ListPage implements OnInit {
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
+
+					this.appointmentDetail = this.appointmentDetail.map((appointment:any) => {
+						const appointmentDate = new Date(appointment.AppointmentDate);
+						return {
+						  ...appointment,
+						  status: appointmentDate > currentDate ? 'Upcoming' : 'Completed'
+						};
+					  });
 				},
 				error: (error) => {
 					this.toastService.errorToast('Error in processing request!');

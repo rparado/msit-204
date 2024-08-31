@@ -19,13 +19,13 @@
 
 		<ion-card 
 			*ngFor="let item of bills" 
-			color="{{ isPaidFn(item.BillingID) ? 'success' : 'warning' }}"
+			color="{{ isPaidFn(item.BillingID) ? 'secondary' : 'warning' }}"
 			
 		>
 			<ion-card-header>
 			  <ion-card-title>
 				<strong>Billing ID: {{item.BillingID}}</strong>
-				<ion-badge color="{{ isPaidFn(item.BillingID) ? 'primary' : 'danger' }}">{{ item.isPaid ? 'Paid' : 'Unpaid' }}</ion-badge>
+				<ion-badge color="{{ isPaidFn(item.BillingID) ? 'success' : 'danger' }}">{{ item.isPaid ? 'Paid' : 'Unpaid' }}</ion-badge>
 			</ion-card-title>
 			 
 			</ion-card-header>
@@ -42,15 +42,17 @@
 					<ion-text><strong>Total Amount: </strong>Php {{item.TotalAmount | number: '1.2-2'}}</ion-text>
 				</ion-item>
 			  </ion-list>
-			  <ion-button 
-			  	*ngIf="!item.isPaid"
-				(click)="pay()"
-				[disabled]="isPaidFn(item.BillingID)"
-				size="default"
-				color="primary"
-				>
-				Pay Now
-				</ion-button>
+			  	<div class="btn-wrapper">
+					<ion-button 
+						*ngIf="!item.isPaid"
+						(click)="pay()"
+						[disabled]="isPaidFn(item.BillingID)"
+						size="default"
+						color="dark"
+					>
+					Pay Now
+					</ion-button>
+				</div>
 			</ion-card-content>
 		  </ion-card>
 	</div>
