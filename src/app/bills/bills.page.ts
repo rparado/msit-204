@@ -81,12 +81,16 @@ export class BillsPage implements OnInit {
 			.subscribe((data: any) => {
 				if(data) {
 					this.toastService.successToast(data.message)
-					this.router.navigateByUrl('/appointment');
+					setTimeout(() => {
+						this.router.navigateByUrl('/appointment');
+					}, 2000)
 				} 
 				
 			},(err) => {
 				this.toastService.successToast(err.error.message);
-				this.router.navigateByUrl('/appointment');
+				setTimeout(() => {
+					this.router.navigateByUrl('/appointment');
+				}, 2000)
 			})
 	}
 
