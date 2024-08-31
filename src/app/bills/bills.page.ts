@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LoadingService } from '../shared/service/loading.service';
 import { BillService } from './service/bill.service';
 import { Bill } from './model/bill';
 import { PatientServiceService } from '../patient/service/patient-service.service';
-import { combineLatest, map } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { ToastService } from '../services/toast.service';
 import { AppointmentService } from '../appointment/service/appointment.service';
 
@@ -25,9 +25,15 @@ export class BillsPage implements OnInit {
 		private profileService: PatientServiceService,
 		private toastService: ToastService,
 		private appointmentService: AppointmentService,
+		private cdr: ChangeDetectorRef
 	) { }
 
 	ngOnInit() {
+		
+		this.getCombinedAPIData();
+		this.cdr.detectChanges();
+	}
+	ionViewWillEnter() {
 		this.getCombinedAPIData();
 	}
 
@@ -40,7 +46,7 @@ export class BillsPage implements OnInit {
 		const userProfile$ = this.profileService.getProfile();
 		const bills$ = this.billService.getBills(billId)
 
-		combineLatest([userProfile$, bills$]).pipe(
+		forkJoin ([userProfile$, bills$]).pipe(
 			map(([userProfile, bills]) => {
 				return {
 					userProfile, bills
@@ -49,12 +55,14 @@ export class BillsPage implements OnInit {
 		).subscribe(
 			{
 				next: (combinedResponse: any) => {
+					if(combinedResponse) {
+						this.hideLoading();
+						this.user = combinedResponse.userProfile;
+						this.bills = combinedResponse.bills;
+					} else {
+						console.log('sadsd')
+					}
 
-					this.loadingService.hide();
-					this.loading = false;
-
-					this.user = combinedResponse.userProfile;
-					this.bills = combinedResponse.bills;
 				},
 				error: (error) => {
 					this.toastService.errorToast(error.error.message);
@@ -68,7 +76,7 @@ export class BillsPage implements OnInit {
 			.subscribe((data: any) => {
 				if(data) {
 					this.toastService.successToast(data.message)
-					this.billService.getBills(billId)
+					this.getCombinedAPIData();
 				} 
 				
 			},(err) => {
@@ -81,5 +89,8 @@ export class BillsPage implements OnInit {
 		const billing = this.bills.find(b => b.BillingID === billingId);
 		return billing ? billing.isPaid : false;
 	}
-
+	hideLoading() {
+		this.loadingService.hide();
+		this.loading = false;
+	}
 }

@@ -1,12 +1,13 @@
-<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
-	<ion-progress-bar type="indeterminate"></ion-progress-bar>
-</ng-container>
+
 <app-header
   [pageTitle]="'Appointment Details'"
 >
 </app-header>
-
+<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
+	<ion-progress-bar type="indeterminate"></ion-progress-bar>
+</ng-container>
 <ion-content [fullscreen]="true" class="ion-padding">
+
 	<div class="inner-content ion-padding">
 		<ion-text  *ngIf="user">
 			<h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3>
@@ -20,12 +21,12 @@
 				<ion-col size="3"  class="text-center">Appointment Date</ion-col>
 			</ion-row>
 			<ion-row 
-				*ngFor="let item of appointmentDetail | filterAppointments: doctors: specailizations" 
+				*ngFor="let item of appointmentDetail | filterSpecialization: specailizations" 
 				class="ion-align-items-center ion-justify-content-center bordered-row"
 				(click)="payAppointment(item.BillingID)"
 			>
 				<ion-col size="3"  class="text-center">{{item.AppointmentID}}</ion-col>
-				<ion-col size="3"  class="text-center">{{item.DoctorName}}</ion-col>
+				<ion-col size="3"  class="text-center">{{item.DoctorID}}</ion-col>
 				<ion-col size="3"  class="text-center">{{item.Specialization}}</ion-col>
 				<ion-col size="3"  class="text-center">{{item.AppointmentDate | date: "MMMM dd, yyyy"}}</ion-col>
 				

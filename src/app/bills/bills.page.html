@@ -1,47 +1,58 @@
-<ng-container *ngIf="loadingService.loading$ | async">
-	<ion-progress-bar type="indeterminate"></ion-progress-bar>
-</ng-container>
+
 <app-header
   [pageTitle]="'Bills'"
 ></app-header>
 
 <ion-content [fullscreen]="true">
+	<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
+		<ion-progress-bar type="indeterminate"></ion-progress-bar>
+	</ng-container>
 	<div class="inner-content ion-padding">
-		<ion-text  *ngIf="user">
-			<h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3>
-			<p>Please see your Bill details below.</p>
-		</ion-text>
-		<ion-grid>
-			<ion-row class="ion-align-items-center ion-justify-content-center bordered-row ion-padding">
-				<ion-col size="2" class="text-center">Billing ID</ion-col>
-				<ion-col size="2" class="text-center">Consultation Fee</ion-col>
-				<ion-col size="2" class="text-center">Insurance Coverage</ion-col>
-				<ion-col size="2" class="text-center">Paid</ion-col>
-				<ion-col size="2" class="text-center">Total Amount</ion-col>
-				<ion-col size="2" class="text-center">Action</ion-col>
-			</ion-row>
-			<ion-row *ngFor="let item of bills" class="ion-align-items-center ion-justify-content-center bordered-row">
-				<ion-col size="2" class="text-center">{{item.BillingID}}</ion-col>
-				<ion-col size="2" class="text-center">Php {{item.ConsultationFee | number: '1.2-2'}}</ion-col>
-				<ion-col size="2" class="text-center">Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-col>
-				<ion-col size="2" class="text-center">{{ item.isPaid ? 'Yes' : 'No' }}</ion-col>
-				<ion-col size="2" class="text-center">Php {{item.TotalAmount | number: '1.2-2'}}</ion-col>
-				<ion-col size="2">
-					<ion-button 
-						(click)="pay()"
-						[disabled]="isPaidFn(item.BillingID)"
-						expand="block"
-						size="default"
-						color="{{ isPaidFn(item.BillingID) ? 'success' : 'primary' }}"
-					>
-					{{ isPaidFn(item.BillingID) ? 'Paid' : 'Pay Now' }}
-					</ion-button>
-				</ion-col>
-			</ion-row>
-			<ion-row class="ion-padding">
-				
-			</ion-row>
-		</ion-grid>
+		<ion-card *ngIf="user">
+			<ion-card-header>
+				<ion-card-title>Hello , {{user?.FirstName}} {{user?.LastName}}</ion-card-title>
+			  </ion-card-header>
+			  <ion-card-content>
+				Please see your billing details below.
+			  </ion-card-content>
+		</ion-card>
+
+		<ion-card 
+			*ngFor="let item of bills" 
+			color="{{ isPaidFn(item.BillingID) ? 'success' : 'warning' }}"
+			
+		>
+			<ion-card-header>
+			  <ion-card-title>
+				<strong>Billing ID: {{item.BillingID}}</strong>
+				<ion-badge color="{{ isPaidFn(item.BillingID) ? 'primary' : 'danger' }}">{{ item.isPaid ? 'Paid' : 'Unpaid' }}</ion-badge>
+			</ion-card-title>
+			 
+			</ion-card-header>
+		  
+			<ion-card-content>
+			  <ion-list class="{{ isPaidFn(item.BillingID) ? 'paid' : 'unpaid' }}">
+				<ion-item>
+					<ion-text><strong>Insurance Coverage: </strong>Php {{item.InsuranceCoverage | number: '1.2-2'}}</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-text><strong>Consultation Fee: </strong>Php {{item.ConsultationFee | number: '1.2-2'}}</ion-text>
+				</ion-item>
+				<ion-item>
+					<ion-text><strong>Total Amount: </strong>Php {{item.TotalAmount | number: '1.2-2'}}</ion-text>
+				</ion-item>
+			  </ion-list>
+			  <ion-button 
+			  	*ngIf="!item.isPaid"
+				(click)="pay()"
+				[disabled]="isPaidFn(item.BillingID)"
+				size="default"
+				color="primary"
+				>
+				Pay Now
+				</ion-button>
+			</ion-card-content>
+		  </ion-card>
 	</div>
 	<app-tab></app-tab>
 </ion-content>

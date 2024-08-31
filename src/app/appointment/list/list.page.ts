@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AppointmentService } from '../service/appointment.service';
 import { PatientServiceService } from 'src/app/patient/service/patient-service.service';
 import { combineLatest, map } from 'rxjs';
@@ -41,11 +41,16 @@ export class ListPage implements OnInit {
 		public loadingService: LoadingService,
 		private toastService: ToastService,
 		private router: Router,
+		private cdr: ChangeDetectorRef
 	) { }
 
 	ngOnInit() {
+		this.cdr.detectChanges();
 		this.getCombinedAPIData();
 
+	}
+	ionViewWillEnter() {
+		this.getCombinedAPIData();
 	}
 	hideLoading() {
 		this.loadingService.hide();

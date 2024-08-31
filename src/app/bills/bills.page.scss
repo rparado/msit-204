@@ -4,3 +4,20 @@
 .bordered-row {
     border: 1px solid #fff;
 }
+ion-list {
+    background: transparent;
+}
+.unpaid ion-text,
+.paid ion-text {
+    color: #000;
+}
+ion-badge {
+    margin-left: 0.625rem;
+    padding: .3125rem;
+}
+ion-text {
+    margin-left: 0;
+}
+.ion-margin-top11 {
+    margin-top: 20px;
+}
