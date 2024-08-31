@@ -15,3 +15,6 @@ ion-content {
 ion-badge {
     margin-left: .625rem;
 }
+ion-card {
+    --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color, #fff)));
+}
