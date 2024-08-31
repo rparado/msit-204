@@ -9,6 +9,7 @@ import { DateService } from '../services/date.service';
 })
 export class CalendarPage {
 	maxDate: string;
+	
 
 	constructor(
 		private modalCtrl: ModalController,

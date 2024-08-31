@@ -1,11 +1,11 @@
 
 <ion-header [translucent]="true">
-	<ng-container *ngIf="loadingService.loading$ | async">
-		<ion-progress-bar type="indeterminate"></ion-progress-bar>
-	</ng-container>
 	<ion-toolbar>
 	  <ion-title>Login</ion-title>
 	</ion-toolbar>
+	<ng-container *ngIf="loadingService.loading$ | async">
+		<ion-progress-bar type="indeterminate"></ion-progress-bar>
+	</ng-container>
 </ion-header>
 
 
