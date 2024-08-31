@@ -35,12 +35,7 @@ export class PatientProfilePage implements OnInit {
 	}
 
 	ngOnInit() {
-
-		this.dateSubscription = this.dateService.selectedDate$.subscribe(date => {
-			if (date) {
-				this.patientForm.patchValue({ bday: date });
-			}
-		});
+		this.patientForm.reset();
 	}
 
 	patientForm = this.fb.group({
@@ -55,6 +50,11 @@ export class PatientProfilePage implements OnInit {
 
 
 	async openDatePicker() {
+		this.dateSubscription = this.dateService.selectedDate$.subscribe(date => {
+			if (date) {
+				this.patientForm.patchValue({ bday: date });
+			}
+		});
 		const modal = await this.modalCtrl.create({
 			component: CalendarPage,
 
@@ -65,6 +65,8 @@ export class PatientProfilePage implements OnInit {
 
 		this.loadingService.show();
 		this.loading = true;
+
+	
 
 		const formData = this.patientForm.value;
 

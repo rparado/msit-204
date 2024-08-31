@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
 	 }
 
 	ngOnInit() {
-
+		this.loginForm.reset();
 	}
 	async onLogin() {
 		this.loadingService.show();

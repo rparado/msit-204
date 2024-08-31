@@ -56,15 +56,9 @@ export class AppointmentPage implements OnInit {
 	ngOnInit() {
 		this.cdr.detectChanges();
 		this.getSpecializations();
-
-		this.dateSubscription = this.dateService.selectedDate$.subscribe((date) => {
-			if (date) {
-				this.appointForm.patchValue({ appointmentDate: date });
-				this.selectedDate = date;		
-			}
-		});
-
 		this.getUserProfile();
+
+		this.appointForm.reset();
 	}
 	getUserProfile() {
 		this.profileService.getProfile()
@@ -114,6 +108,13 @@ export class AppointmentPage implements OnInit {
 
 	
 	async openDatePicker() {
+		this.dateSubscription = this.dateService.selectedDate$.subscribe((date) => {
+			if (date) {
+				this.appointForm.patchValue({ appointmentDate: date });
+				this.selectedDate = date;		
+			}
+		});
+		
 		const modal = await this.modalCtrl.create({
 			component: CalendarPage,
 
@@ -126,6 +127,7 @@ export class AppointmentPage implements OnInit {
 	}
 
 	onSubmit() {
+	
 		this.loadingService.show();
 		this.loading = true;
 		const formData: any = {
