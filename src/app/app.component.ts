@@ -12,7 +12,7 @@ export class AppComponent {
   
 	isTabShown: boolean = false;
   
-  constructor(		private localStorageService: LocalStorageService) {}
+  constructor(	private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -34,4 +34,6 @@ export class AppComponent {
 		  this.totalBillSubscription.unsubscribe();
 		}
   }
+
+
 }

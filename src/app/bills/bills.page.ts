@@ -127,4 +127,7 @@ export class BillsPage implements OnInit {
 		  this.totalBillSubscription.unsubscribe();
 		}
 	  }
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
+	}
 }

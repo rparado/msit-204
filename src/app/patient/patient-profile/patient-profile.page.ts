@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-patient-profile',
@@ -29,7 +30,8 @@ export class PatientProfilePage implements OnInit {
 		private patientService: PatientServiceService,
 		public loadingService: LoadingService,
 		private toastService: ToastService,
-		private router: Router
+		private router: Router,
+		private localStorageService: LocalStorageService
 	) { 
 		this.selectedDate = new Date().toISOString(); 
 	}
@@ -101,6 +103,9 @@ export class PatientProfilePage implements OnInit {
 		//Called once, before the instance is destroyed.
 		//Add 'implements OnDestroy' to the class.
 		this.dateSubscription.unsubscribe();
+	}
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
 	}
 	
 }

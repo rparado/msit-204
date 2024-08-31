@@ -24,4 +24,11 @@ export class LocalStorageService {
       localStorage.setItem('billCount', value.toString());
     }
   }
+
+  doRefresh(event: any) {
+		setTimeout(() => {
+		  window.location.reload();
+		  event.target.complete();
+		}, 2000);
+	  }
 }

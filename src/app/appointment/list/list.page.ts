@@ -44,6 +44,7 @@ export class ListPage implements OnInit {
 		private toastService: ToastService,
 		private router: Router,
 		private cdr: ChangeDetectorRef,
+		private localStorageService: LocalStorageService
 	) { }
 
 	ngOnInit() {
@@ -110,6 +111,10 @@ export class ListPage implements OnInit {
 		this.router.navigateByUrl('/bills');
 		localStorage.setItem('billid', billingId);
 		
+	}
+
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
 	}
 
 	

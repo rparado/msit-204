@@ -6,6 +6,9 @@
 ></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content pullingText="Pull to refresh" refreshingSpinner="circles"></ion-refresher-content>
+	  </ion-refresher>
 	<div class="inner-content ion-padding">
 		<form [formGroup]="patientForm">
 			<ion-item>

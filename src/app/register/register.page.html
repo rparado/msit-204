@@ -13,7 +13,9 @@
 </ion-header>
   
   <ion-content [fullscreen]="true" class="ion-padding-top">
-
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content pullingText="Pull to refresh" refreshingSpinner="circles"></ion-refresher-content>
+	  </ion-refresher>
 	<div class="ion-content ion-padding">
 		<div class="center-content">
 			<form [formGroup]="registerForm">

@@ -10,6 +10,7 @@ import { ToastService } from '../services/toast.service';
 import { PatientServiceService } from '../patient/service/patient-service.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
 	selector: 'app-appointment',
@@ -49,7 +50,8 @@ export class AppointmentPage implements OnInit {
 		private toastService: ToastService,
 		private profileService: PatientServiceService,
 		private router: Router,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private localStorageService: LocalStorageService
 	) { 
 		
 	}
@@ -154,5 +156,8 @@ export class AppointmentPage implements OnInit {
 		//Add 'implements OnDestroy' to the class.
 		this.dateSubscription.unsubscribe();
 		this.cdr.detectChanges();
+	}
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
 	}
 }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PatientServiceService } from './service/patient-service.service';
 import { LoadingService } from '../shared/service/loading.service';
 import { ToastService } from '../services/toast.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
 	selector: 'app-patient',
@@ -13,13 +14,14 @@ export class PatientPage implements OnInit {
 
 	userProfile: any;
 
-	size: number = 100
+	size: number = 100;
 
 	constructor(
 		private patientService: PatientServiceService,
 		public loadingService: LoadingService,
 		private toastService: ToastService,
-		private cdr: ChangeDetectorRef
+		private cdr: ChangeDetectorRef,
+		private localStorageService: LocalStorageService
 	) { }
 
 	ngOnInit() {
@@ -50,5 +52,7 @@ export class PatientPage implements OnInit {
 			this.toastService.errorToast(err.error.message)
 		})
 	}
-
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
+	}
 }

@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { RegisterService } from './service/register.service';
 import { LoadingService } from '../shared/service/loading.service';
 import { ToastService } from '../services/toast.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
 	selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterPage implements OnInit {
 		private router: Router,
 		private registerService: RegisterService,
 		public loadingService: LoadingService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private localStorageService: LocalStorageService
 	) { 
 	}
 
@@ -56,6 +58,9 @@ export class RegisterPage implements OnInit {
 	hideLoading() {
 		this.loadingService.hide();
 		this.loading = false;
+	}
+	doRefresh(event: any) {
+		this.localStorageService.doRefresh(event);
 	}
 
 }

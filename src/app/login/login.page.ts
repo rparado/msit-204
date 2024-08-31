@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { LoadingService } from '../shared/service/loading.service';
-import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ToastService } from '../services/toast.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -24,9 +24,9 @@ export class LoginPage implements OnInit {
 		private fb: FormBuilder,
 		private authService: AuthService,
 		public loadingService: LoadingService,
-		private toastController: ToastController,
 		private router: Router,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private localStorage: LocalStorageService
 	) {
 		
 	 }
@@ -76,5 +76,8 @@ export class LoginPage implements OnInit {
 	hideLoading() {
 		this.loadingService.hide();
 		this.loading = false;
+	}
+	doRefresh(event: any) {
+		this.localStorage.doRefresh(event);
 	}
 }
