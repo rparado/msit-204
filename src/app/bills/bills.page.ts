@@ -81,7 +81,7 @@ export class BillsPage implements OnInit {
 			.subscribe((data: any) => {
 				if(data) {
 					this.toastService.successToast(data.message)
-					this.getCombinedAPIData();
+					this.router.navigateByUrl('/appointment');
 				} 
 				
 			},(err) => {
