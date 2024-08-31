@@ -8,10 +8,13 @@ import { DateService } from 'src/app/services/date.service';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage  {
+
+    currentDate: string;
 	constructor(
 		private modalCtrl: ModalController,
 		private dateService: DateService
 	) {
+        this.currentDate = new Date().toISOString();
 	}
 
 	async onDateSelected(event: any) {

@@ -6,6 +6,7 @@ import { DateService } from 'src/app/services/date.service';
 import { PatientServiceService } from '../service/patient-service.service';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-profile',
@@ -24,7 +25,8 @@ export class PatientProfilePage implements OnInit {
     	private dateService: DateService,
 		private patientService: PatientServiceService,
 		public loadingService: LoadingService,
-		private toastService: ToastService
+		private toastService: ToastService,
+		private router: Router
 	) { 
 		this.selectedDate = new Date().toISOString(); 
 	}
@@ -78,6 +80,7 @@ export class PatientProfilePage implements OnInit {
 			.subscribe(async(data:any) => {
 				if(data) {
 					this.hideLoading();
+					this.router.navigateByUrl('/appointment')
 					this.toastService.successToast(data.message)
 				}
 			}, (err) => {
