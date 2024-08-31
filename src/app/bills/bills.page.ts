@@ -42,7 +42,7 @@ export class BillsPage implements OnInit {
 	getCombinedAPIData() {
 		this.loadingService.show();
 		this.loading = true;
-		this.toastService.successToast('Processing data.Please wait...');
+		this.toastService.successToast('Loading data. Please wait...');
 
 		const billId: any = localStorage.getItem("billid")
 
