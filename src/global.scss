@@ -87,3 +87,19 @@ ion-content {
     z-index: 2;
     position: relative;
 }
+.no-l-padding {
+    padding-left: 0 !important;
+}
+ion-text {
+    margin-left: 0;
+}
+ion-item {
+    &:last-child {
+        --border-width: 0;
+        --border-color: transparent;
+    }
+}
+
+ion-list {
+    padding-bottom: 0 !important;
+}

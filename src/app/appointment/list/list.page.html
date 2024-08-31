@@ -4,18 +4,18 @@
 >
 </app-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" >
 	<ng-container *ngIf="loadingService.loading$ | async" class="ion-margin-top">
 		<ion-progress-bar type="indeterminate"></ion-progress-bar>
 	</ng-container>
 	<div class="inner-content ion-padding">
-		  <ion-card   *ngIf="user">
+		  <ion-card  *ngIf="user">
 			<ion-card-header>
 				<ion-card-title><h3>Hello, {{user?.FirstName}} {{user?.LastName}}</h3></ion-card-title>
 			</ion-card-header>
 
 			<ion-card-content>
-				<p>Please see your appointment details below. Click pay now button to process your appointment.</p>
+				<p>Please see your appointment details below. Tap the box to process your appointment.</p>
 			</ion-card-content>
 
 		  </ion-card>
@@ -24,12 +24,12 @@
 			(click)="payAppointment(item.BillingID)"
 		>
 			<ion-card-header>
-				<ion-card-title color="primary">
+				<ion-card-title color="primary" class="card-title">
 					<strong>Appointment ID: {{item.AppointmentID}}</strong>
 					
 				</ion-card-title>
 			  </ion-card-header>
-			  <ion-card-content>
+			  <ion-card-content class="no-l-padding">
 				<ion-item>
 					<ion-text><strong>Doctor: </strong>{{item.DoctorName}}</ion-text>
 				</ion-item>

@@ -62,12 +62,14 @@
 						<small *ngIf="appointForm.get('appointmentDate')?.hasError('required')">Appointment date is required</small>
 					</ion-text>
 				</ion-item>
-				<ion-button 
-					color="success"
-					expand="block"
-					(click)="onSubmit()"
-					[disabled]="!appointForm.valid || loading"
-				>Submit</ion-button>
+				<div class="btn-wrapper">
+					<ion-button 
+						color="success"
+						expand="block"
+						(click)="onSubmit()"
+						[disabled]="!appointForm.valid || loading"
+					>Submit</ion-button>
+				</div>
 			</form>
 		</div>
 	</div>
