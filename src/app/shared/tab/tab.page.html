@@ -1,14 +1,14 @@
 <ion-tabs class="tabs">
 	<ion-tab-bar slot="bottom">
-	  <ion-tab-button [routerLink]="['/appointment']">
+	  <ion-tab-button [routerLink]="['/appointment']" [hidden]="!tabActive">
 		<ion-icon name="home-outline"></ion-icon>
 		Home
 	  </ion-tab-button>
-	  <ion-tab-button [routerLink]="['/appointment/list']">
+	  <ion-tab-button [routerLink]="['/appointment/list']" [hidden]="!tabActive">
 		<ion-icon name="list-outline"></ion-icon>
 		Appointments
 	  </ion-tab-button>
-	  <ion-tab-button  [routerLink]="['/bills']">
+	  <ion-tab-button  [routerLink]="['/bills']" [hidden]="!tabActive">
 		<ion-icon name="receipt-outline"></ion-icon>
 		Bills
 	  </ion-tab-button>

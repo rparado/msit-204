@@ -7,6 +7,7 @@ import { PatientServiceService } from '../service/patient-service.service';
 import { LoadingService } from 'src/app/shared/service/loading.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-patient-profile',
@@ -18,6 +19,8 @@ export class PatientProfilePage implements OnInit {
 	selectedDate: string;
 
 	loading: boolean = false;
+
+	dateSubscription!: Subscription;
 
 	constructor(
 		private fb: FormBuilder,
@@ -33,7 +36,7 @@ export class PatientProfilePage implements OnInit {
 
 	ngOnInit() {
 
-		this.dateService.selectedDate$.subscribe(date => {
+		this.dateSubscription = this.dateService.selectedDate$.subscribe(date => {
 			if (date) {
 				this.patientForm.patchValue({ bday: date });
 			}
@@ -90,6 +93,12 @@ export class PatientProfilePage implements OnInit {
 	hideLoading() {
 		this.loadingService.hide();
 		this.loading = false;
+	}
+
+	ngOnDestroy(): void {
+		//Called once, before the instance is destroyed.
+		//Add 'implements OnDestroy' to the class.
+		this.dateSubscription.unsubscribe();
 	}
 	
 }

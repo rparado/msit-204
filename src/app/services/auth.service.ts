@@ -29,6 +29,7 @@ export class AuthService {
 					if(res) {
 						localStorage.setItem('token', res.token);
 						localStorage.setItem('userId', res.id);
+						localStorage.setItem('profileUpdated', res.profileUpdated)
 					} else {
 						this.clearLocalStorage();
 					}
@@ -47,6 +48,7 @@ export class AuthService {
 	clearLocalStorage() {
 		localStorage.removeItem('token');
 		localStorage.removeItem('userId');
-		localStorage.removeItem('billid')
+		localStorage.removeItem('billid');
+		localStorage.removeItem('profileUpdated')
 	}
 }
