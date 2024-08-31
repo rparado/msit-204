@@ -29,3 +29,6 @@ ion-button {
 .white {
     color: #fff !important;
 }
+ion-card {
+    --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color, #fff)));
+}
