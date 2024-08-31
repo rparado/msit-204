@@ -4,7 +4,7 @@ import { AppointmentService } from './service/appointment.service';
 import { Doctors, Specialization } from './model/specialization';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { CalendarPage } from '../calendar/calendar.page';
+import { CalendarPage } from '../appointment/calendar/calendar.page';
 import { DateService } from '../services/date.service';
 import { ToastService } from '../services/toast.service';
 import { PatientServiceService } from '../patient/service/patient-service.service';

@@ -10,6 +10,10 @@ const routes: Routes = [
   },  {
     path: 'list',
     loadChildren: () => import('./list/list.module').then( m => m.ListPageModule)
+  },
+  {
+    path: 'calendar',
+    loadChildren: () => import('./calendar/calendar.module').then( m => m.CalendarPageModule)
   }
 
 ];
