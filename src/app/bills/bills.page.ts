@@ -42,6 +42,7 @@ export class BillsPage implements OnInit {
 	getCombinedAPIData() {
 		this.loadingService.show();
 		this.loading = true;
+		this.toastService.successToast('Processing data.Please wait...');
 
 		const billId: any = localStorage.getItem("billid")
 
@@ -58,6 +59,7 @@ export class BillsPage implements OnInit {
 			{
 				next: (combinedResponse: any) => {
 					if(combinedResponse) {
+						this.toastService.successToast('Data successfully loaded.');
 						this.hideLoading();
 						this.user = combinedResponse.userProfile;
 						this.bills = combinedResponse.bills;

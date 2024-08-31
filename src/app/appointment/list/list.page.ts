@@ -60,6 +60,8 @@ export class ListPage implements OnInit {
 	getCombinedAPIData() {
 		this.loadingService.show();
 		this.loading = true;
+		this.toastService.successToast('Processing data.Please wait...');
+
 		const userId: any = localStorage.getItem('userId');
 
 		const userProfile$ = this.profileService.getProfile();
@@ -76,7 +78,8 @@ export class ListPage implements OnInit {
 			{
 				next: (combinedResponse: any) => {
 					this.hideLoading();
-					this.noAppointpoint = false;
+					this.toastService.successToast('Data successfully loaded.');
+
 					this.user = combinedResponse.userProfile;
 					this.appointmentDetail = combinedResponse.appointmentDetail
 					this.specailizations = combinedResponse.specialization;
