@@ -9,6 +9,7 @@ import { PatientPageRoutingModule } from './patient-routing.module';
 import { PatientPage } from './patient.page';
 import { SharedModule } from '../shared/shared.module';
 import { TabPageModule } from '../shared/tab/tab.module';
+import { InitialsPipe } from '../shared/pipes/initials.pipe';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TabPageModule } from '../shared/tab/tab.module';
     IonicModule,
     PatientPageRoutingModule,
     SharedModule,
-    TabPageModule
+    TabPageModule,
+    InitialsPipe
   ],
   declarations: [PatientPage]
 })

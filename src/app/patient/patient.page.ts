@@ -13,6 +13,8 @@ export class PatientPage implements OnInit {
 
 	userProfile: any;
 
+	size: number = 100
+
 	constructor(
 		private patientService: PatientServiceService,
 		public loadingService: LoadingService,
